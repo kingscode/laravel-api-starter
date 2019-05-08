@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
 use Exception;
@@ -31,9 +33,14 @@ class Handler extends ExceptionHandler
      *
      * @param  \Exception $exception
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function report(Exception $exception)
     {
+        if ($this->container->bound('sentry') && $this->shouldReport($exception)) {
+            $this->container->make('sentry')->captureException($exception);
+        }
+
         parent::report($exception);
     }
 
