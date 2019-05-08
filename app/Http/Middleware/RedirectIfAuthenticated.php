@@ -5,10 +5,33 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 class RedirectIfAuthenticated
 {
+    /**
+     * @var \Illuminate\Contracts\Auth\Factory
+     */
+    protected $auth;
+
+    /**
+     * @var \Illuminate\Contracts\Routing\ResponseFactory
+     */
+    protected $responseFactory;
+
+    /**
+     * RedirectIfAuthenticated constructor.
+     *
+     * @param  \Illuminate\Contracts\Auth\Factory            $auth
+     * @param  \Illuminate\Contracts\Routing\ResponseFactory $responseFactory
+     */
+    public function __construct(Factory $auth, ResponseFactory $responseFactory)
+    {
+        $this->auth = $auth;
+        $this->responseFactory = $responseFactory;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -19,8 +42,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        if (! $request->expectsJson()) {
+            if ($this->auth->guard($guard)->check()) {
+                return $this->responseFactory->redirectTo('/');
+            }
         }
 
         return $next($request);
