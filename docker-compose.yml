@@ -1,0 +1,68 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      bridget:
+        ipv4_address: 172.16.238.13
+
+  db:
+    image: mariadb:latest
+    restart: always
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: application
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      bridget:
+        ipv4_address: 172.16.238.11
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    container_name: adminer
+    ports:
+      - 4444:8080
+    networks:
+      bridget:
+        ipv4_address: 172.16.238.14
+
+  app:
+    build: ./.docker/php7.3-apache/
+    restart: always
+    container_name: app
+    depends_on:
+      - db
+      - redis
+    ports:
+      - 8888:80
+    volumes:
+      - ./:/var/www/
+      - ./.docker/php7.3-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      bridget:
+        ipv4_address: 172.16.238.12
+
+volumes:
+  web-app:
+    driver: local
+  mysql-data:
+    driver: local
+
+networks:
+  bridget:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
