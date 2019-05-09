@@ -8,8 +8,7 @@ services:
     ports:
       - 6379:6379
     networks:
-      bridget:
-        ipv4_address: 172.16.238.13
+      - default
 
   db:
     image: mariadb:latest
@@ -24,8 +23,7 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
-      bridget:
-        ipv4_address: 172.16.238.11
+      - default
 
   adminer:
     image: adminer:latest
@@ -34,8 +32,7 @@ services:
     ports:
       - 4444:8080
     networks:
-      bridget:
-        ipv4_address: 172.16.238.14
+      - default
 
   app:
     build: ./.docker/php7.3-apache/
@@ -50,8 +47,7 @@ services:
       - ./:/var/www/
       - ./.docker/php7.3-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      bridget:
-        ipv4_address: 172.16.238.12
+      - default
 
 volumes:
   web-app:
@@ -60,9 +56,4 @@ volumes:
     driver: local
 
 networks:
-  bridget:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.16.238.0/24
+  default:
