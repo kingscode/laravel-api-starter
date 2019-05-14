@@ -71,7 +71,9 @@ final class Reset
      */
     public function __invoke(ResetRequest $request)
     {
-        $response = $this->getPasswordBroker()->reset($request->validated(), function (User $user, string $password) {
+        $credentials = $request->only(['token', 'email', 'password', 'password_confirmation']);
+
+        $response = $this->getPasswordBroker()->reset($credentials, function (User $user, string $password) {
             $user->setAttribute('password', $this->hasher->make($password));
 
             $user->setRememberToken(Str::random(60));

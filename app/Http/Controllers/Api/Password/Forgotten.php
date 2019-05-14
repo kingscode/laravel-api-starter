@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Password;
 
-use App\Http\Requests\Api\Password\ResetRequest;
+use App\Http\Requests\Api\Password\ForgottenRequest;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -45,16 +45,16 @@ final class Forgotten
     }
 
     /**
-     * @param  \App\Http\Requests\Api\Password\ResetRequest $request
+     * @param  \App\Http\Requests\Api\Password\ForgottenRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(ResetRequest $request)
+    public function __invoke(ForgottenRequest $request)
     {
-        $response = $this->getPasswordBroker()->sendResetLink($request->validated());
+        $this->getPasswordBroker()->sendResetLink($request->validated());
 
         return $this->responseFactory->json([
-            'message' => $this->translator->trans($response),
-        ], PasswordBroker::PASSWORD_RESET === $response ? 200 : 422);
+            'message' => $this->translator->trans(PasswordBroker::RESET_LINK_SENT),
+        ]);
     }
 
     /**
