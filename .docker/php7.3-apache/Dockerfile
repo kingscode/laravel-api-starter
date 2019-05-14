@@ -19,8 +19,10 @@ RUN apt-get install -y \
         libzip-dev \
         # gmp
         libgmp-dev \
+    && pecl install xdebug \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd mbstring zip mysqli pdo_mysql gmp
+    && docker-php-ext-install -j$(nproc) gd mbstring zip mysqli pdo_mysql gmp \
+    && docker-php-ext-enable xdebug
 
 # Create working directory
 RUN mkdir -p /var/www/
