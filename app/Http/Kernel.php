@@ -7,8 +7,8 @@ namespace App\Http;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\EncryptCookies;
-use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\LocaleSelector;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -43,6 +43,7 @@ class Kernel extends HttpKernel
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         TrustProxies::class,
+        Cors::class,
     ];
 
     /**
@@ -61,10 +62,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            Cors::class,
             LocaleSelector::class,
-            'throttle:60,1',
-            'bindings',
+            SubstituteBindings::class,
         ],
     ];
 

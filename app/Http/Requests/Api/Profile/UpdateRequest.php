@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Api\Password;
+namespace App\Http\Requests\Api\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ForgottenRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +27,8 @@ class ForgottenRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'email'],
+            'name'  => ['required', 'max:191', 'name'],
+            'email' => ['required', 'max:191', 'email', Rule::unique('users', 'email')->ignore($this->user())],
         ];
     }
 }
