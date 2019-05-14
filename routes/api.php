@@ -8,8 +8,8 @@ use Illuminate\Routing\Router;
 
 $router->namespace('Api')->prefix('api')->group(function (Router $router) {
     $router->namespace('Password')->prefix('password')->name('password.')->group(function (Router $router) {
-        $router->post('reset', 'Reset')->name('reset')->middleware('guest');
-        $router->post('forgotten', 'Forgotten')->name('reset')->middleware('guest');
+        $router->post('reset', 'Reset')->name('reset');
+        $router->post('forgotten', 'Forgotten')->name('reset');
     });
 
     $router->middleware('auth:api')->group(function (Router $router) {
