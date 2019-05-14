@@ -1,0 +1,23 @@
+<?php
+
+namespace Tests\Feature\Api\Profile;
+
+use App\Models\User;
+use Tests\TestCase;
+
+class ShowTest extends TestCase
+{
+    public function test()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user)->json('get', 'api/profile');
+
+        $response->assertStatus(200)->assertJson([
+            'data' => [
+                'name'  => $user->name,
+                'email' => $user->email,
+            ],
+        ]);
+    }
+}
