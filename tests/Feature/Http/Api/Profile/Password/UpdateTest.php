@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\Profile\Password;
+namespace Tests\Feature\Http\Api\Profile\Password;
 
 use App\Models\User;
 use Tests\TestCase;

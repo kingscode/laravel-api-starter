@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\Password;
+namespace Tests\Feature\Http\Api\Password;
 
 use App\Models\User;
 use function factory;
