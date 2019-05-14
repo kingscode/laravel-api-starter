@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Routing\ResponseFactory;
 
-class RedirectIfAuthenticated
+final class RedirectIfAuthenticated
 {
     /**
      * @var \Illuminate\Contracts\Auth\Factory

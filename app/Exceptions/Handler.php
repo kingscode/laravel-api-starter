@@ -7,7 +7,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler
+final class Handler extends ExceptionHandler
 {
     /**
      * A list of the exception types that are not reported.
@@ -34,6 +34,8 @@ class Handler extends ExceptionHandler
      * @param  \Exception $exception
      * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Exception
+     * @codeCoverageIgnore
      */
     public function report(Exception $exception)
     {
@@ -42,17 +44,5 @@ class Handler extends ExceptionHandler
         }
 
         parent::report($exception);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Exception               $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Exception $exception)
-    {
-        return parent::render($request, $exception);
     }
 }

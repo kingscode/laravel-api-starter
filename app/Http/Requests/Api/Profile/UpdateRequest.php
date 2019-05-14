@@ -7,7 +7,7 @@ namespace App\Http\Requests\Api\Profile;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+final class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

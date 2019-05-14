@@ -7,7 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\Request;
 
-class LocaleSelector
+final class LocaleSelector
 {
     /**
      * @var \Illuminate\Contracts\Config\Repository

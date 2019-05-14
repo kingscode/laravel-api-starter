@@ -6,7 +6,7 @@ namespace App\Http\Requests\Api\Password;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ForgottenRequest extends FormRequest
+final class ForgottenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
