@@ -25,6 +25,14 @@ $router->namespace('Api')->prefix('api')->group(function (Router $router) {
             $router->put('', 'Update')->name('update');
             $router->get('', 'Show')->name('show');
         });
+
+        $router->namespace('User')->prefix('user')->name('user.')->group(function (Router $router) {
+            $router->delete('{user}', 'Destroy')->name('destroy');
+            $router->put('{user}', 'Update')->name('update');
+            $router->get('{user}', 'Show')->name('show');
+            $router->post('', 'Store')->name('store');
+            $router->get('', 'Index')->name('index');
+        });
     });
 
     $router->post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')->name('passport.token');
