@@ -42,7 +42,7 @@ services:
       - db
       - redis
     ports:
-      - 8888:80
+      - 80:80
     volumes:
       - ./:/var/www/
       - ./.docker/php7.3-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
