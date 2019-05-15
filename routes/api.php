@@ -12,6 +12,10 @@ $router->namespace('Api')->prefix('api')->group(function (Router $router) {
         $router->post('forgotten', 'Forgotten')->name('reset');
     });
 
+    $router->namespace('Invitation')->prefix('invitation')->name('invitation.')->group(function (Router $router) {
+        $router->post('accept', 'Accept')->name('accept');
+    });
+
     $router->middleware('auth:api')->group(function (Router $router) {
         $router->namespace('Profile')->prefix('profile')->name('profile.')->group(function (Router $router) {
             $router->namespace('Password')->prefix('password')->name('password.')->group(function (Router $router) {
