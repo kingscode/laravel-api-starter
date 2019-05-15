@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Invitation;
 
-use App\Http\Requests\Api\Password\AcceptRequest;
+use App\Http\Requests\Api\Invitation\AcceptRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
