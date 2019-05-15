@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests\Feature\Http\Api\Profile;
+namespace Tests\Feature\Http\Api\User;
 
 use App\Models\User;
 use Tests\TestCase;
+use function factory;
 
 class ShowTest extends TestCase
 {
@@ -11,7 +12,7 @@ class ShowTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json('get', 'api/profile');
+        $response = $this->actingAs($user)->json('get', 'api/user/' . $user->getKey());
 
         $response->assertStatus(200)->assertJson([
             'data' => [
