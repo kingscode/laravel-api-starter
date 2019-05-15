@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Invitation;
 
-use App\Http\Requests\Api\Password\ResetRequest;
+use App\Http\Requests\Api\Password\AcceptRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
@@ -66,10 +66,10 @@ final class Accept
     }
 
     /**
-     * @param  \App\Http\Requests\Api\Password\ResetRequest $request
+     * @param  \App\Http\Requests\Api\Password\AcceptRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(ResetRequest $request)
+    public function __invoke(AcceptRequest $request)
     {
         $credentials = $request->only(['token', 'email', 'password', 'password_confirmation']);
 
