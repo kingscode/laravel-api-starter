@@ -1,5 +1,8 @@
 # Changelog
 
+## V1.0.1
+- Front-end routes receive the password reset and invitation token in the url (ex: `/invitation/accept/{token}` and `/password/reset/{token}`).
+
 ## V1.0.0
 - `laravel/passport` (OAuth2) for authentication.
 - User crud.
