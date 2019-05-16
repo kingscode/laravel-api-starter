@@ -91,7 +91,7 @@ final class Reset
 
         return $this->responseFactory->json([
             'message' => $this->translator->trans(PasswordBroker::INVALID_TOKEN),
-        ], 422);
+        ], 400);
     }
 
     /**

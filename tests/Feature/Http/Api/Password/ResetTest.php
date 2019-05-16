@@ -36,7 +36,7 @@ class ResetTest extends TestCase
             'password_confirmation' => 'kingscodedotnl',
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(400);
     }
 
     public function testValidationErrors()
