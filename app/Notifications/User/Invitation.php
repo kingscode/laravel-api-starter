@@ -51,16 +51,15 @@ final class Invitation extends Notification
     public function toMail(User $user): MailMessage
     {
         $query = http_build_query([
-            'token' => $this->token,
             'email' => $user->getEmailForPasswordReset(),
         ]);
 
-        $url = front_url('invitation/accept?' . $query);
+        $url = front_url('invitation/accept/' . $this->token . $query);
 
         return (new MailMessage())
             ->subject(Lang::getFromJson('Account Invitation Notification'))
             ->line(Lang::getFromJson('You are receiving this email because an account was created for you.'))
             ->action(Lang::getFromJson('Activate account'), $url)
-            ->line(Lang::getFromJson('This invitation email will expire in :count minutes.', ['count' => config('auth.passwords.user-invitations.expire')]));
+            ->line(Lang::getFromJson('This invitation email will expire in :count hours.', ['count' => config('auth.passwords.user-invitations.expire') / 60]));
     }
 }
