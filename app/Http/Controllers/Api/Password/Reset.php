@@ -83,9 +83,15 @@ final class Reset
             $this->eventDispatcher->dispatch(new PasswordReset($user));
         });
 
+        if (PasswordBroker::PASSWORD_RESET === $response) {
+            return $this->responseFactory->json([
+                'message' => $this->translator->trans($response),
+            ], 200);
+        }
+
         return $this->responseFactory->json([
-            'message' => $this->translator->trans($response),
-        ], PasswordBroker::PASSWORD_RESET === $response ? 200 : 422);
+            'message' => $this->translator->trans(PasswordBroker::INVALID_TOKEN),
+        ], 422);
     }
 
     /**
