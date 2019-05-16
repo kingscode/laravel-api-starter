@@ -54,7 +54,7 @@ final class PasswordReset extends Notification
             'email' => $user->getEmailForPasswordReset(),
         ]);
 
-        $url = front_url('password/reset/'. $this->token . $query);
+        $url = front_url('password/reset/' . $this->token . '?' . $query);
 
         return (new MailMessage())
             ->subject(Lang::getFromJson('Reset Password Notification'))

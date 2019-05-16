@@ -54,7 +54,7 @@ final class Invitation extends Notification
             'email' => $user->getEmailForPasswordReset(),
         ]);
 
-        $url = front_url('invitation/accept/' . $this->token . $query);
+        $url = front_url('invitation/accept/' . $this->token . '?' . $query);
 
         return (new MailMessage())
             ->subject(Lang::getFromJson('Account Invitation Notification'))
