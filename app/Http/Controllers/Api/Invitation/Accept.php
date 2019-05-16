@@ -66,7 +66,7 @@ final class Accept
     }
 
     /**
-     * @param  \App\Http\Requests\Api\Password\AcceptRequest $request
+     * @param  \App\Http\Requests\Api\Invitation\AcceptRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(AcceptRequest $request)
