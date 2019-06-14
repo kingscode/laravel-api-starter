@@ -33,7 +33,6 @@ final class Handler extends ExceptionHandler
      *
      * @param  \Exception $exception
      * @return void
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Exception
      * @codeCoverageIgnore
      */
