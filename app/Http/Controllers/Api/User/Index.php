@@ -8,7 +8,7 @@ use App\Http\Resources\Api\UserResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use KoenHoeijmakers\LaravelFilterable\Filtering;
+use KoenHoeijmakers\LaravelFilterable\Contracts\Filtering;
 
 final class Index
 {
@@ -20,7 +20,7 @@ final class Index
     /**
      * Index constructor.
      *
-     * @param  \KoenHoeijmakers\LaravelFilterable\Filtering $filtering
+     * @param  \KoenHoeijmakers\LaravelFilterable\Contracts\Filtering $filtering
      */
     public function __construct(Filtering $filtering)
     {
