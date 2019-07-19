@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05ac3b15835c50b031a8dada132c178c",
+    "content-hash": "b49f75677bd66fbb1f8c7cce20e28325",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -913,6 +913,42 @@
                 "versions"
             ],
             "time": "2018-06-13T13:22:40+00:00"
+        },
+        {
+            "name": "koenhoeijmakers/headers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/koenhoeijmakers/php-headers.git",
+                "reference": "1ee1c92395af819e8e4f1684850b4a2d7d491af2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/koenhoeijmakers/php-headers/zipball/1ee1c92395af819e8e4f1684850b4a2d7d491af2",
+                "reference": "1ee1c92395af819e8e4f1684850b4a2d7d491af2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "KoenHoeijmakers\\Headers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Koen Hoeijmakers",
+                    "email": "koen@hoeijmakers.me"
+                }
+            ],
+            "description": "A header collection support library.",
+            "time": "2019-05-19T09:04:33+00:00"
         },
         {
             "name": "koenhoeijmakers/laravel-filterable",
