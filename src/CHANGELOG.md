@@ -1,5 +1,10 @@
 # Changelog
 
+## V1.1.0
+- Moved source code to dedicated `src/` folder.
+- Added default `docs/` folder.
+- Renamed `.docker/` to `docker/`.
+
 ## V1.0.1
 - Front-end routes receive the password reset and invitation token in the url (ex: `/invitation/accept/{token}` and `/password/reset/{token}`).
 - Invitations and password resets gave away if an email was used in the application, this has been fixed.
