@@ -16,7 +16,7 @@ build:
       tests:
         before:
           - command: mysql -u root -e "CREATE DATABASE scrutinizer;"
-          - command: php artisan migrate
+          - command: php ./src/artisan migrate
         override:
           - command: ./src/vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
             coverage:
