@@ -8,32 +8,25 @@ Our base `laravel/laravel` installation for `vue` front-end applications.
 
 ## Usage
 ```bash
-composer create-project kingscode/laravel-api-starter
+composer create-project kingscode/laravel-api-starter --stability=dev --prefer-source
 ```
 
 ## Installation
-
+Begin by pulling the docker containers and booting docker.
 ```bash
-composer install
+$ docker-compose up --build -d
 ```
 
+Then get into the `app` container.
 ```bash
-cp .env.example .env
+$ docker exec -it app bash
 ```
 
+And run the following commands.
 ```bash
-php artisan key:generate
+$ composer install
+$ cp .env.example .env
+$ php artisan key:generate
+$ php artisan migrate
+$ php artisan passport:keys
 ```
-
-```bash
-php artisan migrate
-```
-
-```bash
-php artisan db:seed
-```
-
-```bash
-php artisan passport:install
-```
-
