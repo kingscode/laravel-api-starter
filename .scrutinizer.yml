@@ -16,9 +16,9 @@ build:
       tests:
         before:
           - command: mysql -u root -e "CREATE DATABASE scrutinizer;"
-          - command: php ./src/artisan migrate
+          - command: php ./artisan migrate
         override:
-          - command: ./src/vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+          - command: ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
             coverage:
               file: coverage.clover
               format: clover
@@ -26,10 +26,10 @@ build:
 
 filter:
   paths:
-    - 'src/app/*'
+    - 'app/*'
   excluded_paths:
-    - 'src/app/views/*'
-    - 'src/app/config/*'
-    - 'src/app/database/*'
+    - 'app/views/*'
+    - 'app/config/*'
+    - 'app/database/*'
 checks:
   php: true
