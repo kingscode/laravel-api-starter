@@ -29,8 +29,8 @@ final class Store
     /**
      * Store constructor.
      *
-     * @param  \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
-     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
+     * @param \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
+     * @param \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
      */
     public function __construct(Dispatcher $notificationDispatcher, PasswordBrokerManager $passwordBrokerManager)
     {
@@ -39,7 +39,7 @@ final class Store
     }
 
     /**
-     * @param  \App\Http\Requests\Api\User\StoreRequest $request
+     * @param \App\Http\Requests\Api\User\StoreRequest $request
      * @return \App\Http\Resources\Api\UserResource
      */
     public function __invoke(StoreRequest $request)

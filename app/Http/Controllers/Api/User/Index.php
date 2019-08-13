@@ -13,14 +13,14 @@ use KoenHoeijmakers\LaravelFilterable\Contracts\Filtering;
 final class Index
 {
     /**
-     * @var \KoenHoeijmakers\LaravelFilterable\Filtering
+     * @var \KoenHoeijmakers\LaravelFilterable\Contracts\Filtering
      */
     protected $filtering;
 
     /**
      * Index constructor.
      *
-     * @param  \KoenHoeijmakers\LaravelFilterable\Contracts\Filtering $filtering
+     * @param \KoenHoeijmakers\LaravelFilterable\Contracts\Filtering $filtering
      */
     public function __construct(Filtering $filtering)
     {
@@ -28,7 +28,7 @@ final class Index
     }
 
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function __invoke(Request $request)

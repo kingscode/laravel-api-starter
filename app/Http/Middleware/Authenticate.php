@@ -18,8 +18,8 @@ final class Authenticate extends Middleware
     /**
      * Authenticate constructor.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory         $auth
-     * @param  \Illuminate\Contracts\Routing\UrlGenerator $urlGenerator
+     * @param \Illuminate\Contracts\Auth\Factory         $auth
+     * @param \Illuminate\Contracts\Routing\UrlGenerator $urlGenerator
      */
     public function __construct(Factory $auth, UrlGenerator $urlGenerator)
     {

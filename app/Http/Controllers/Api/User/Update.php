@@ -11,8 +11,8 @@ use App\Models\User;
 final class Update
 {
     /**
-     * @param  \App\Http\Requests\Api\User\UpdateRequest $request
-     * @param  \App\Models\User                          $user
+     * @param \App\Http\Requests\Api\User\UpdateRequest $request
+     * @param \App\Models\User                          $user
      * @return \App\Http\Resources\Api\UserResource
      */
     public function __invoke(UpdateRequest $request, User $user)

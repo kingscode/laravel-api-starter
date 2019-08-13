@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Guard;
 final class Show
 {
     /**
-     * @param  \Illuminate\Contracts\Auth\Guard $guard
+     * @param \Illuminate\Contracts\Auth\Guard $guard
      * @return \App\Http\Resources\Api\UserResource
      */
     public function __invoke(Guard $guard)

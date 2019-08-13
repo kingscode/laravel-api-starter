@@ -45,11 +45,11 @@ final class Reset
     /**
      * Reset constructor.
      *
-     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
-     * @param  \Illuminate\Contracts\Hashing\Hasher             $hasher
-     * @param  \Illuminate\Contracts\Events\Dispatcher          $eventDispatcher
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
-     * @param  \Illuminate\Contracts\Translation\Translator     $translator
+     * @param \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
+     * @param \Illuminate\Contracts\Hashing\Hasher             $hasher
+     * @param \Illuminate\Contracts\Events\Dispatcher          $eventDispatcher
+     * @param \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
+     * @param \Illuminate\Contracts\Translation\Translator     $translator
      */
     public function __construct(
         PasswordBrokerManager $passwordBrokerManager,
@@ -66,7 +66,7 @@ final class Reset
     }
 
     /**
-     * @param  \App\Http\Requests\Api\Password\ResetRequest $request
+     * @param \App\Http\Requests\Api\Password\ResetRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(ResetRequest $request)

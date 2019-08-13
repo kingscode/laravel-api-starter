@@ -17,7 +17,7 @@ final class Destroy
     /**
      * Destroy constructor.
      *
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory $responseFactory
+     * @param \Illuminate\Contracts\Routing\ResponseFactory $responseFactory
      */
     public function __construct(ResponseFactory $responseFactory)
     {
@@ -25,7 +25,7 @@ final class Destroy
     }
 
     /**
-     * @param  \App\Models\User $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function __invoke(User $user)

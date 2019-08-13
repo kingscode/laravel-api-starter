@@ -38,10 +38,10 @@ final class Forgotten
     /**
      * Reset constructor.
      *
-     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
-     * @param  \Illuminate\Contracts\Translation\Translator     $translator
-     * @param  \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
+     * @param \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
+     * @param \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
+     * @param \Illuminate\Contracts\Translation\Translator     $translator
+     * @param \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
      */
     public function __construct(
         PasswordBrokerManager $passwordBrokerManager,
@@ -56,7 +56,7 @@ final class Forgotten
     }
 
     /**
-     * @param  \App\Http\Requests\Api\Password\ForgottenRequest $request
+     * @param \App\Http\Requests\Api\Password\ForgottenRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(ForgottenRequest $request)

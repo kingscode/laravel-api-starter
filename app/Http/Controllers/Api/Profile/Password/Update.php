@@ -19,7 +19,7 @@ final class Update
     /**
      * Update constructor.
      *
-     * @param  \Illuminate\Contracts\Hashing\Hasher $hasher
+     * @param \Illuminate\Contracts\Hashing\Hasher $hasher
      */
     public function __construct(Hasher $hasher)
     {
@@ -29,8 +29,8 @@ final class Update
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Contracts\Auth\Guard                      $guard
-     * @param  \App\Http\Requests\Api\Profile\Password\UpdateRequest $request
+     * @param \Illuminate\Contracts\Auth\Guard                      $guard
+     * @param \App\Http\Requests\Api\Profile\Password\UpdateRequest $request
      * @return \App\Http\Resources\Api\UserResource
      */
     public function __invoke(Guard $guard, UpdateRequest $request)
