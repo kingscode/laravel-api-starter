@@ -72,7 +72,7 @@ final class Forgotten
         // We'll always send a successful response so that an attack can't find
         // what email addresses exist in the application.
         return $this->responseFactory->json([
-            'message' => $this->translator->trans(PasswordBroker::RESET_LINK_SENT),
+            'message' => $this->translator->get(PasswordBroker::RESET_LINK_SENT),
         ]);
     }
 

@@ -85,12 +85,12 @@ final class Reset
 
         if (PasswordBroker::PASSWORD_RESET === $response) {
             return $this->responseFactory->json([
-                'message' => $this->translator->trans($response),
+                'message' => $this->translator->get($response),
             ], 200);
         }
 
         return $this->responseFactory->json([
-            'message' => $this->translator->trans(PasswordBroker::INVALID_TOKEN),
+            'message' => $this->translator->get(PasswordBroker::INVALID_TOKEN),
         ], 400);
     }
 
