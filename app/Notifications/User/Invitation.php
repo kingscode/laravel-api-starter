@@ -57,9 +57,9 @@ final class Invitation extends Notification
         $url = front_url('invitation/accept/' . $this->token . '?' . $query);
 
         return (new MailMessage())
-            ->subject(Lang::getFromJson('Account Invitation Notification'))
-            ->line(Lang::getFromJson('You are receiving this email because an account was created for you.'))
-            ->action(Lang::getFromJson('Activate account'), $url)
-            ->line(Lang::getFromJson('This invitation email will expire in :count hours.', ['count' => config('auth.passwords.user-invitations.expire') / 60]));
+            ->subject(Lang::get('Account Invitation Notification'))
+            ->line(Lang::get('You are receiving this email because an account was created for you.'))
+            ->action(Lang::get('Activate account'), $url)
+            ->line(Lang::get('This invitation email will expire in :count hours.', ['count' => config('auth.passwords.user-invitations.expire') / 60]));
     }
 }
