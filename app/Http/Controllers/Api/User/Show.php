@@ -10,7 +10,7 @@ use App\Models\User;
 final class Show
 {
     /**
-     * @param \App\Models\User $user
+     * @param  \App\Models\User $user
      * @return \App\Http\Resources\Api\UserResource
      */
     public function __invoke(User $user)

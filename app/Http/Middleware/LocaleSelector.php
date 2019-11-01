@@ -22,8 +22,8 @@ final class LocaleSelector
     /**
      * SetLocaleFromHeader constructor.
      *
-     * @param \Illuminate\Contracts\Config\Repository      $config
-     * @param \Illuminate\Contracts\Translation\Translator $translator
+     * @param  \Illuminate\Contracts\Config\Repository      $config
+     * @param  \Illuminate\Contracts\Translation\Translator $translator
      */
     public function __construct(Repository $config, Translator $translator)
     {
@@ -34,8 +34,8 @@ final class LocaleSelector
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure                 $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

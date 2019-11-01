@@ -20,36 +20,36 @@ final class Accept
     /**
      * @var \Illuminate\Auth\Passwords\PasswordBrokerManager
      */
-    protected $passwordBrokerManager;
+    private $passwordBrokerManager;
 
     /**
      * @var \Illuminate\Contracts\Hashing\Hasher
      */
-    protected $hasher;
+    private $hasher;
 
     /**
      * @var \Illuminate\Contracts\Events\Dispatcher
      */
-    protected $eventDispatcher;
+    private $eventDispatcher;
 
     /**
      * @var \Illuminate\Contracts\Routing\ResponseFactory
      */
-    protected $responseFactory;
+    private $responseFactory;
 
     /**
      * @var \Illuminate\Contracts\Translation\Translator
      */
-    protected $translator;
+    private $translator;
 
     /**
      * Reset constructor.
      *
-     * @param \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
-     * @param \Illuminate\Contracts\Hashing\Hasher             $hasher
-     * @param \Illuminate\Contracts\Events\Dispatcher          $eventDispatcher
-     * @param \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
-     * @param \Illuminate\Contracts\Translation\Translator     $translator
+     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
+     * @param  \Illuminate\Contracts\Hashing\Hasher             $hasher
+     * @param  \Illuminate\Contracts\Events\Dispatcher          $eventDispatcher
+     * @param  \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
+     * @param  \Illuminate\Contracts\Translation\Translator     $translator
      */
     public function __construct(
         PasswordBrokerManager $passwordBrokerManager,
@@ -66,7 +66,7 @@ final class Accept
     }
 
     /**
-     * @param \App\Http\Requests\Api\Invitation\AcceptRequest $request
+     * @param  \App\Http\Requests\Api\Invitation\AcceptRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(AcceptRequest $request)
@@ -97,7 +97,7 @@ final class Accept
     /**
      * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    protected function getPasswordBroker(): PasswordBroker
+    private function getPasswordBroker(): PasswordBroker
     {
         return $this->passwordBrokerManager->broker('user-invitations');
     }

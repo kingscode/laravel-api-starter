@@ -24,7 +24,7 @@ final class Invitation extends Notification
     /**
      * Create a notification instance.
      *
-     * @param string $token
+     * @param  string $token
      * @return void
      */
     public function __construct(string $token)
@@ -45,7 +45,7 @@ final class Invitation extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param User $user
+     * @param  User $user
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail(User $user): MailMessage

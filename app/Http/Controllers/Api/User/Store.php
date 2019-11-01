@@ -19,18 +19,18 @@ final class Store
     /**
      * @var \Illuminate\Contracts\Notifications\Dispatcher
      */
-    protected $notificationDispatcher;
+    private $notificationDispatcher;
 
     /**
      * @var \Illuminate\Auth\Passwords\PasswordBrokerManager
      */
-    protected $passwordBrokerManager;
+    private $passwordBrokerManager;
 
     /**
      * Store constructor.
      *
-     * @param \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
-     * @param \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
+     * @param  \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
+     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
      */
     public function __construct(Dispatcher $notificationDispatcher, PasswordBrokerManager $passwordBrokerManager)
     {
@@ -39,7 +39,7 @@ final class Store
     }
 
     /**
-     * @param \App\Http\Requests\Api\User\StoreRequest $request
+     * @param  \App\Http\Requests\Api\User\StoreRequest $request
      * @return \App\Http\Resources\Api\UserResource
      */
     public function __invoke(StoreRequest $request)
@@ -62,7 +62,7 @@ final class Store
     /**
      * @return \Illuminate\Contracts\Auth\PasswordBroker|\Illuminate\Auth\Passwords\PasswordBroker
      */
-    protected function getPasswordBroker(): PasswordBroker
+    private function getPasswordBroker(): PasswordBroker
     {
         return $this->passwordBrokerManager->broker('user-invitations');
     }

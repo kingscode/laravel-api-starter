@@ -3,9 +3,9 @@
 namespace Tests\Feature\Http\Api\Password;
 
 use App\Models\User;
-use function factory;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Tests\TestCase;
+use function factory;
 
 class AcceptTest extends TestCase
 {

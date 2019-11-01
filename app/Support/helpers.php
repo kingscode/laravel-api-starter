@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Support;
 
 /**
- * @param string $uri
+ * @param  string $uri
  * @return string
  */
 function front_url(string $uri = '')
