@@ -29,10 +29,11 @@ And run the following commands.
 ```bash
 $ cp .env.example .env
 $ composer install
-$ php artisan key:generate
-$ php artisan migrate
-$ php artisan passport:keys
-$ php artisan passport:client --password
+$ pa key:generate
+$ pa migrate
+$ pa passport:keys
+$ pa passport:client --password
+$ pa db:seed
 ```
 
 ### Without Docker
@@ -52,6 +53,7 @@ $ php artisan key:generate
 $ php artisan migrate
 $ php artisan passport:keys
 $ php artisan passport:client --password
+$ php artisan db:seed
 ```
 
 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.explicit.bing.net%2Fth%3Fid%3DOIP.yP-yT-o8-1XeZ205ANoVKwHaD_%26pid%3DApi&f=1">

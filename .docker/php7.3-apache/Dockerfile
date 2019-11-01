@@ -40,7 +40,7 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Some aliasses.
 RUN echo 'alias pa="php artisan"' >> ~/.bashrc
 RUN echo 'alias phpunit="./vendor/bin/phpunit"' >> ~/.bashrc
-RUN echo 'alias refresh="pa migrate:fresh && pa db:seed"' >> ~/.bashrc
+RUN echo 'alias refresh="pa migrate:fresh"' >> ~/.bashrc
 
 # make laravel feel comfortable with mod-rewrite
 RUN a2enmod rewrite && service apache2 restart
