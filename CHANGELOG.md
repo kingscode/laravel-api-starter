@@ -1,8 +1,10 @@
 # Changelog
 
-## V1.0.2 (unreleased)
+## V1.0.3 (unreleased)
 - //
 
+## V1.0.2
+- Added a default seeder that seeds a `User` and an oauth `Client`.
 
 ## V1.0.1
 - Front-end routes receive the password reset and invitation token in the url (ex: `/invitation/accept/{token}` and `/password/reset/{token}`).
