@@ -11,6 +11,20 @@ Our base `laravel/laravel` installation for `vue` front-end applications.
 composer create-project kingscode/laravel-api-starter --stability=dev --prefer-source
 ```
 
+Then after following the [installation](#installation) steps you'll have an OAuth client with the credentials:
+```bash
+id: 1
+secret: 384WFKbLe729R2fw7ZRvK1DuGVwpAhct774DYkTI
+```
+
+There'll also be a default user with the credentials:
+```bash
+email: info@kingscode.nl
+password: secret
+```
+
+The API routes will be `/admin` for admin, and `/open` for open (public) routes.
+
 ## Installation
 ### With Docker
 Docker helps a ton by providing us a unison development environment that allows us to quickly install new dependencies and share the configuration of those.
