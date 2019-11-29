@@ -10,13 +10,6 @@ use Illuminate\Contracts\Auth\Guard;
 
 final class Update
 {
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Contracts\Auth\Guard             $guard
-     * @param  \App\Http\Requests\Api\Profile\UpdateRequest $request
-     * @return \App\Http\Resources\Api\UserResource
-     */
     public function __invoke(Guard $guard, UpdateRequest $request)
     {
         /** @var \App\Models\User $user */

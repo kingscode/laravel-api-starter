@@ -15,34 +15,14 @@ use Illuminate\Contracts\Translation\Translator;
 
 final class Forgotten
 {
-    /**
-     * @var \Illuminate\Auth\Passwords\PasswordBrokerManager
-     */
-    private $passwordBrokerManager;
+    private PasswordBrokerManager $passwordBrokerManager;
 
-    /**
-     * @var \Illuminate\Contracts\Routing\ResponseFactory
-     */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
-    /**
-     * @var \Illuminate\Contracts\Translation\Translator
-     */
-    private $translator;
+    private Translator $translator;
 
-    /**
-     * @var \Illuminate\Contracts\Notifications\Dispatcher
-     */
-    private $notificationDispatcher;
+    private Dispatcher $notificationDispatcher;
 
-    /**
-     * Reset constructor.
-     *
-     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
-     * @param  \Illuminate\Contracts\Translation\Translator     $translator
-     * @param  \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
-     */
     public function __construct(
         PasswordBrokerManager $passwordBrokerManager,
         ResponseFactory $responseFactory,
@@ -55,10 +35,6 @@ final class Forgotten
         $this->notificationDispatcher = $notificationDispatcher;
     }
 
-    /**
-     * @param  \App\Http\Requests\Api\Password\ForgottenRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function __invoke(ForgottenRequest $request)
     {
         $user = User::query()->where('email', $request->input('email'))->first();
@@ -76,9 +52,6 @@ final class Forgotten
         ]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Auth\PasswordBroker|\Illuminate\Auth\Passwords\PasswordBroker
-     */
     private function getPasswordBroker(): PasswordBroker
     {
         return $this->passwordBrokerManager->broker('users');

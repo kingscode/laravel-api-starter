@@ -35,7 +35,7 @@ services:
       - default
 
   app:
-    build: .docker/php7.3-apache/
+    build: .docker/php7.4-apache/
     restart: always
     container_name: app
     depends_on:
@@ -45,7 +45,7 @@ services:
       - 80:80
     volumes:
       - ./:/var/www/
-      - ./.docker/php7.3-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./.docker/php7.4-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - default
 

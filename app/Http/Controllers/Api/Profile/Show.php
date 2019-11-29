@@ -6,15 +6,12 @@ namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Resources\Api\UserResource;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
 
 final class Show
 {
-    /**
-     * @param  \Illuminate\Contracts\Auth\Guard $guard
-     * @return \App\Http\Resources\Api\UserResource
-     */
-    public function __invoke(Guard $guard)
+    public function __invoke(Guard $guard, Request $request)
     {
-        return new UserResource($guard->user());
+        return (new UserResource($guard->user()))->toResponse($request);
     }
 }

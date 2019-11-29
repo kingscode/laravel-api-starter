@@ -7,31 +7,20 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Resources\Api\UserResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use KoenHoeijmakers\LaravelFilterable\Contracts\Filtering;
 
 final class Index
 {
-    /**
-     * @var \KoenHoeijmakers\LaravelFilterable\Contracts\Filtering
-     */
-    private $filtering;
+    private Filtering $filtering;
 
-    /**
-     * Index constructor.
-     *
-     * @param  \KoenHoeijmakers\LaravelFilterable\Contracts\Filtering $filtering
-     */
     public function __construct(Filtering $filtering)
     {
         $this->filtering = $filtering;
     }
 
-    /**
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
-     */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $builder = User::query();
 
@@ -46,6 +35,10 @@ final class Index
             ->sortFor('email')
             ->filter();
 
-        return UserResource::collection($builder->paginate($request->input('perPage')));
+        $paginator = $builder->paginate(
+            $request->input('perPage')
+        );
+
+        return UserResource::collection($paginator)->toResponse($request);
     }
 }

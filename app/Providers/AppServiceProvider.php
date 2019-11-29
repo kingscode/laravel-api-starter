@@ -14,7 +14,7 @@ final class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         Builder::defaultStringLength(191);
     }
@@ -24,7 +24,7 @@ final class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }

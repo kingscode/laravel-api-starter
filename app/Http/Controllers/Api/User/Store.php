@@ -11,38 +11,23 @@ use App\Notifications\User\Invitation;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Notifications\Dispatcher;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 final class Store
 {
-    /**
-     * @var \Illuminate\Contracts\Notifications\Dispatcher
-     */
-    private $notificationDispatcher;
+    private Dispatcher $notificationDispatcher;
 
-    /**
-     * @var \Illuminate\Auth\Passwords\PasswordBrokerManager
-     */
-    private $passwordBrokerManager;
+    private PasswordBrokerManager $passwordBrokerManager;
 
-    /**
-     * Store constructor.
-     *
-     * @param  \Illuminate\Contracts\Notifications\Dispatcher   $notificationDispatcher
-     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
-     */
     public function __construct(Dispatcher $notificationDispatcher, PasswordBrokerManager $passwordBrokerManager)
     {
         $this->notificationDispatcher = $notificationDispatcher;
         $this->passwordBrokerManager = $passwordBrokerManager;
     }
 
-    /**
-     * @param  \App\Http\Requests\Api\User\StoreRequest $request
-     * @return \App\Http\Resources\Api\UserResource
-     */
-    public function __invoke(StoreRequest $request)
+    public function __invoke(StoreRequest $request): JsonResponse
     {
         $attributes = $request->validated();
 
@@ -56,12 +41,9 @@ final class Store
             new Invitation($this->getPasswordBroker()->createToken($user))
         );
 
-        return new UserResource($user);
+        return (new UserResource($user))->toResponse($request);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Auth\PasswordBroker|\Illuminate\Auth\Passwords\PasswordBroker
-     */
     private function getPasswordBroker(): PasswordBroker
     {
         return $this->passwordBrokerManager->broker('user-invitations');

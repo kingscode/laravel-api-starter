@@ -23,7 +23,7 @@ final class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
     }
@@ -34,7 +34,7 @@ final class RouteServiceProvider extends ServiceProvider
      * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function map()
+    public function map(): void
     {
         $router = $this->app->make(Router::class);
 
@@ -51,7 +51,7 @@ final class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router $router
      * @return void
      */
-    protected function mapWebRoutes(Router $router)
+    protected function mapWebRoutes(Router $router): void
     {
         $router->middleware('web')
             ->namespace($this->namespace)
@@ -66,7 +66,7 @@ final class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router $router
      * @return void
      */
-    protected function mapApiRoutes(Router $router)
+    protected function mapApiRoutes(Router $router): void
     {
         $router->middleware('api')
             ->namespace($this->namespace)

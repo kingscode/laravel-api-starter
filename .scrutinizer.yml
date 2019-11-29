@@ -9,7 +9,7 @@ build:
           DB_USERNAME: 'root'
           DB_PASSWORD: ''
         php:
-          version: 7.3
+          version: 7.4
       project_setup:
         override:
           - 'true'

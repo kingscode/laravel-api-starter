@@ -6,15 +6,12 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Resources\Api\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 final class Show
 {
-    /**
-     * @param  \App\Models\User $user
-     * @return \App\Http\Resources\Api\UserResource
-     */
-    public function __invoke(User $user)
+    public function __invoke(Request $request, User $user)
     {
-        return new UserResource($user);
+        return (new UserResource($user))->toResponse($request);
     }
 }

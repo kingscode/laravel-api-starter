@@ -9,25 +9,13 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 
 final class Destroy
 {
-    /**
-     * @var \Illuminate\Contracts\Routing\ResponseFactory
-     */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
-    /**
-     * Destroy constructor.
-     *
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory $responseFactory
-     */
     public function __construct(ResponseFactory $responseFactory)
     {
         $this->responseFactory = $responseFactory;
     }
 
-    /**
-     * @param  \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
     public function __invoke(User $user)
     {
         return $this->responseFactory->noContent(

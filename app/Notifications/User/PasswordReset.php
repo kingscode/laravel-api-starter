@@ -14,40 +14,18 @@ use function http_build_query;
 
 final class PasswordReset extends Notification
 {
-    /**
-     * The password reset token.
-     *
-     * @var string
-     */
-    public $token;
+    public string $token;
 
-    /**
-     * Create a notification instance.
-     *
-     * @param  string $token
-     * @return void
-     */
     public function __construct(string $token)
     {
         $this->token = $token;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array
-     */
     public function via(): array
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  User $user
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail(User $user): MailMessage
     {
         $query = http_build_query([

@@ -13,44 +13,22 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
+use PhpParser\Node\Expr\Cast\Int_;
 
 final class Accept
 {
-    /**
-     * @var \Illuminate\Auth\Passwords\PasswordBrokerManager
-     */
-    private $passwordBrokerManager;
+    private PasswordBrokerManager $passwordBrokerManager;
 
-    /**
-     * @var \Illuminate\Contracts\Hashing\Hasher
-     */
-    private $hasher;
+    private Hasher $hasher;
 
-    /**
-     * @var \Illuminate\Contracts\Events\Dispatcher
-     */
-    private $eventDispatcher;
+    private Dispatcher $eventDispatcher;
 
-    /**
-     * @var \Illuminate\Contracts\Routing\ResponseFactory
-     */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
-    /**
-     * @var \Illuminate\Contracts\Translation\Translator
-     */
-    private $translator;
+    private Translator $translator;
 
-    /**
-     * Reset constructor.
-     *
-     * @param  \Illuminate\Auth\Passwords\PasswordBrokerManager $passwordBrokerManager
-     * @param  \Illuminate\Contracts\Hashing\Hasher             $hasher
-     * @param  \Illuminate\Contracts\Events\Dispatcher          $eventDispatcher
-     * @param  \Illuminate\Contracts\Routing\ResponseFactory    $responseFactory
-     * @param  \Illuminate\Contracts\Translation\Translator     $translator
-     */
     public function __construct(
         PasswordBrokerManager $passwordBrokerManager,
         Hasher $hasher,
@@ -65,11 +43,7 @@ final class Accept
         $this->translator = $translator;
     }
 
-    /**
-     * @param  \App\Http\Requests\Api\Invitation\AcceptRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function __invoke(AcceptRequest $request)
+    public function __invoke(AcceptRequest $request): JsonResponse
     {
         $credentials = $request->only(['token', 'email', 'password', 'password_confirmation']);
 
@@ -94,9 +68,6 @@ final class Accept
         ], 400);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
-     */
     private function getPasswordBroker(): PasswordBroker
     {
         return $this->passwordBrokerManager->broker('user-invitations');
