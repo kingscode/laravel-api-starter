@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\User;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
@@ -31,7 +32,7 @@ class StoreTest extends TestCase
 
         $response = $this->actingAs($user)->json('post', 'api/user');
 
-        $response->assertStatus(422)->assertJsonValidationErrors([
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'name', 'email',
         ]);
     }

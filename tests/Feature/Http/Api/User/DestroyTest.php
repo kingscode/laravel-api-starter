@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\User;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
@@ -14,7 +15,7 @@ class DestroyTest extends TestCase
 
         $response = $this->actingAs(factory(User::class)->create())->json('delete', 'api/user/' . $user->getKey());
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseMissing('users', [
             'id' => $user->getKey(),

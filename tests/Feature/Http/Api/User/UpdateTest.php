@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\User;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
@@ -32,7 +33,7 @@ class UpdateTest extends TestCase
 
         $response = $this->actingAs($user)->json('put', 'api/user/' . $user->getKey());
 
-        $response->assertStatus(422)->assertJsonValidationErrors([
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'name', 'email',
         ]);
     }

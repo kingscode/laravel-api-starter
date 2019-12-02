@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\User;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
@@ -14,7 +15,7 @@ class IndexTest extends TestCase
 
         $response = $this->actingAs($user)->json('get', 'api/user');
 
-        $response->assertStatus(200)->assertJson([
+        $response->assertStatus(Response::HTTP_OK)->assertJson([
             'data' => [
                 [
                     'id'    => $user->getKey(),
@@ -36,6 +37,8 @@ class IndexTest extends TestCase
 
         $response = $this->actingAs($user1)->json('get', 'api/user?name=bbb');
 
+        $response->assertStatus(Response::HTTP_OK);
+
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }
 
@@ -49,6 +52,8 @@ class IndexTest extends TestCase
         ]);
 
         $response = $this->actingAs($user1)->json('get', 'api/user?email=support');
+
+        $response->assertStatus(Response::HTTP_OK);
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }
@@ -64,6 +69,8 @@ class IndexTest extends TestCase
 
         $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=name&desc=0');
 
+        $response->assertStatus(Response::HTTP_OK);
+
         $this->assertSame($user1->getKey(), $response->json('data.0.id'));
     }
 
@@ -77,6 +84,8 @@ class IndexTest extends TestCase
         ]);
 
         $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=name&desc=1');
+
+        $response->assertStatus(Response::HTTP_OK);
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }
@@ -92,6 +101,8 @@ class IndexTest extends TestCase
 
         $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=email&desc=0');
 
+        $response->assertStatus(Response::HTTP_OK);
+
         $this->assertSame($user1->getKey(), $response->json('data.0.id'));
     }
 
@@ -105,6 +116,8 @@ class IndexTest extends TestCase
         ]);
 
         $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=email&desc=1');
+
+        $response->assertStatus(Response::HTTP_OK);
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }

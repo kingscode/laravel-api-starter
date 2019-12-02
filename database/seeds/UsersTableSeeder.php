@@ -16,8 +16,7 @@ final class UsersTableSeeder extends Seeder
     {
         if (User::query()->where('email', 'info@kingscode.nl')->doesntExist()) {
             factory(User::class)->create([
-                'email'    => 'info@kingscode.nl',
-                'password' => bcrypt('secret'),
+                'email' => 'info@kingscode.nl',
             ]);
         }
     }

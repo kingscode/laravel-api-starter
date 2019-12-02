@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\Profile;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
@@ -19,7 +20,7 @@ class UpdateTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('users', [
             'name'  => 'King',
@@ -39,7 +40,7 @@ class UpdateTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(422)->assertJsonValidationErrors([
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'email',
         ]);
     }
@@ -50,7 +51,7 @@ class UpdateTest extends TestCase
 
         $response = $this->actingAs($user)->json('put', 'api/profile');
 
-        $response->assertStatus(422)->assertJsonValidationErrors([
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'name', 'email',
         ]);
     }

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\Profile;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class ShowTest extends TestCase
@@ -13,7 +14,7 @@ class ShowTest extends TestCase
 
         $response = $this->actingAs($user)->json('get', 'api/profile');
 
-        $response->assertStatus(200)->assertJson([
+        $response->assertStatus(Response::HTTP_OK)->assertJson([
             'data' => [
                 'id'    => $user->getKey(),
                 'name'  => $user->name,

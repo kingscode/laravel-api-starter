@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Api\Password;
 
 use App\Models\User;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
@@ -22,7 +23,7 @@ class AcceptTest extends TestCase
             'password_confirmation' => 'kingscodedotnl',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function testWithNonExistentToken()
@@ -36,14 +37,14 @@ class AcceptTest extends TestCase
             'password_confirmation' => 'kingscodedotnl',
         ]);
 
-        $response->assertStatus(400);
+        $response->assertStatus(Response::HTTP_BAD_REQUEST);
     }
 
     public function testValidationErrors()
     {
         $response = $this->json('post', 'api/invitation/accept');
 
-        $response->assertStatus(422)->assertJsonValidationErrors([
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'token', 'email', 'password',
         ]);
     }

@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Api\Password;
 use App\Models\User;
 use App\Notifications\User\PasswordReset;
 use Illuminate\Contracts\Notifications\Dispatcher;
+use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use Tests\TestCase;
 
@@ -22,7 +23,7 @@ class ForgottenTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
 
         $fake->assertSentTo($user, PasswordReset::class);
     }
@@ -33,14 +34,14 @@ class ForgottenTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function testValidationErrors()
     {
         $response = $this->json('post', 'api/password/forgotten');
 
-        $response->assertStatus(422)->assertJsonValidationErrors([
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'email',
         ]);
     }
