@@ -14,6 +14,7 @@ use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 final class Reset
@@ -59,12 +60,12 @@ final class Reset
         if (PasswordBroker::PASSWORD_RESET === $response) {
             return $this->responseFactory->json([
                 'message' => $this->translator->get($response),
-            ], 200);
+            ]);
         }
 
         return $this->responseFactory->json([
             'message' => $this->translator->get(PasswordBroker::INVALID_TOKEN),
-        ], 400);
+        ],  Response::HTTP_BAD_REQUEST);
     }
 
     private function getPasswordBroker(): PasswordBroker

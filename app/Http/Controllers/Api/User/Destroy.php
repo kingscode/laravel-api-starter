@@ -20,7 +20,7 @@ final class Destroy
     public function __invoke(User $user): Response
     {
         return $this->responseFactory->noContent(
-            $user->delete() ? 200 : 409
+            $user->delete() ? Response::HTTP_OK : Response::HTTP_CONFLICT
         );
     }
 }
