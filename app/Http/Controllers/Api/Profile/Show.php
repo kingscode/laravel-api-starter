@@ -6,11 +6,12 @@ namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Resources\Api\UserResource;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 final class Show
 {
-    public function __invoke(Guard $guard, Request $request)
+    public function __invoke(Guard $guard, Request $request): JsonResponse
     {
         return (new UserResource($guard->user()))->toResponse($request);
     }

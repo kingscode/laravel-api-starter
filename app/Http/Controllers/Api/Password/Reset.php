@@ -13,6 +13,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
 final class Reset
@@ -41,7 +42,7 @@ final class Reset
         $this->translator = $translator;
     }
 
-    public function __invoke(ResetRequest $request)
+    public function __invoke(ResetRequest $request): JsonResponse
     {
         $credentials = $request->only(['token', 'email', 'password', 'password_confirmation']);
 

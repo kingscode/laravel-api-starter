@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
 
 final class Destroy
 {
@@ -16,7 +17,7 @@ final class Destroy
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(User $user)
+    public function __invoke(User $user): Response
     {
         return $this->responseFactory->noContent(
             $user->delete() ? 200 : 409

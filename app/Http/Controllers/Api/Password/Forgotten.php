@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Http\JsonResponse;
 
 final class Forgotten
 {
@@ -35,7 +36,7 @@ final class Forgotten
         $this->notificationDispatcher = $notificationDispatcher;
     }
 
-    public function __invoke(ForgottenRequest $request)
+    public function __invoke(ForgottenRequest $request): JsonResponse
     {
         $user = User::query()->where('email', $request->input('email'))->first();
 
