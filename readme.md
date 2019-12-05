@@ -23,8 +23,6 @@ email: info@kingscode.nl
 password: secret
 ```
 
-The API routes will be `/admin` for admin, and `/open` for open (public) routes.
-
 ## Installation
 ### With Docker
 Docker helps a ton by providing us a unison development environment that allows us to quickly install new dependencies and share the configuration of those.
