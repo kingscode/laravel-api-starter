@@ -1,12 +1,15 @@
 FROM php:7.4-apache
 
-# Install GIT, GnuPG, NodeJS and NPM.
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get install -y nodejs git gnupg
+    && apt-get upgrade -y
 
-# Add necessary php extensions.
+# xdebug
+RUN pecl install xdebug
+
+# phpredis
+RUN pecl install -o -f redis \
+    && rm -rf /tmp/pear
+
 RUN apt-get install -y \
         # utils
         nano \
@@ -21,10 +24,10 @@ RUN apt-get install -y \
         libgmp-dev \
         # regex
         libonig-dev \
-    && pecl install xdebug \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd mbstring zip mysqli pdo_mysql gmp \
     && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable redis \
     && docker-php-source delete
 
 # Create working directory
