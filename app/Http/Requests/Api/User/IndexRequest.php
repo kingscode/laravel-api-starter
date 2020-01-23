@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Api\Invitation;
+namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class AcceptRequest extends FormRequest
+final class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,11 @@ final class AcceptRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token'    => ['required', 'string'],
-            'email'    => ['required', 'string', 'email'],
-            'password' => ['required', 'string', 'min:10', 'max:191', 'confirmed'],
+            'name'    => ['sometimes', 'string', 'max:191'],
+            'email'   => ['sometimes', 'string', 'max:191'],
+            'sortBy'  => ['sometimes', 'string', 'in:name,email'],
+            'desc'    => ['sometimes', 'boolean'],
+            'perPage' => ['sometimes', 'integer', 'min:1', 'max:100'],
         ];
     }
 }
