@@ -14,6 +14,8 @@ final class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        //
+        \App\Events\User\Deleting::class => [
+            \App\Listeners\User\CleanUpWhenDeleting::class,
+        ],
     ];
 }

@@ -11,14 +11,15 @@ class DestroyTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create();
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
 
-        $response = $this->actingAs(factory(User::class)->create())->json('delete', 'api/user/' . $user->getKey());
+        $response = $this->actingAs($user1, 'api')->json('delete', 'api/user/' . $user2->getKey());
 
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseMissing('users', [
-            'id' => $user->getKey(),
+            'id' => $user2->getKey(),
         ]);
     }
 }
