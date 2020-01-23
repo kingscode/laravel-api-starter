@@ -18,14 +18,4 @@ final class AppServiceProvider extends ServiceProvider
     {
         Builder::defaultStringLength(191);
     }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot(): void
-    {
-        //
-    }
 }

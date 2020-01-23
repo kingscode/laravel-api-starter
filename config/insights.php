@@ -10,6 +10,8 @@ use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use ObjectCalisthenics\Sniffs\Metrics\MethodPerClassLimitSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\UnnecessaryFinalModifierSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\SwitchDeclarationSniff;
+use PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer;
+use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowShortTernaryOperatorSniff;
@@ -71,17 +73,16 @@ return [
         AssignmentInConditionSniff::class,
         DisallowYodaComparisonSniff::class,
         RequireCombinedAssignmentOperatorSniff::class,
-        EmptyCommentSniff::class,
         StaticClosureSniff::class,
         UnnecessaryFinalModifierSniff::class,
         MethodPerClassLimitSniff::class,
         SwitchDeclarationSniff::class,
+        EmptyCommentSniff::class,
+        NoEmptyCommentFixer::class,
     ],
 
     'config' => [
-        ForbiddenPrivateMethods::class => [
-            'title' => 'The usage of private methods is not idiomatic in Laravel.',
-        ],
+        //
     ],
 
 ];

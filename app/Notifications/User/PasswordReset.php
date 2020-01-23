@@ -11,7 +11,6 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 use function app;
 use function config;
-use function http_build_query;
 
 final class PasswordReset extends Notification
 {
@@ -29,11 +28,7 @@ final class PasswordReset extends Notification
 
     public function toMail(User $user): MailMessage
     {
-        $query = http_build_query([
-            'email' => $user->getEmailForPasswordReset(),
-        ]);
-
-        $url = $url = app(UrlGenerator::class)->to('password/reset/' . $this->token, [
+        $url = app(UrlGenerator::class)->to('password/reset/' . $this->token, [
             'email' => $user->getEmailForPasswordReset(),
         ]);
 

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\User;
+use App\Models\UserToken;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 
@@ -18,9 +18,7 @@ final class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
-    ];
+    protected $policies = [];
 
     /**
      * Register any authentication / authorization services.
@@ -44,14 +42,18 @@ final class AuthServiceProvider extends ServiceProvider
         $authManager = $this->app->make(AuthManager::class);
 
         $authManager->viaRequest('spa', function (Request $request): User {
-            /** @var User|null $user */
-            $user = User::query()
-                ->whereHas('tokens',
-                    fn(Builder $builder) => $builder->where('token', $request->bearerToken())->whereNotNull('token')
-                )
+            /** @var UserToken $userToken */
+            $userToken = UserToken::query()
+                ->with('user')
+                ->where('token', $request->bearerToken())
+                ->whereNotNull('token')
                 ->firstOr(function () {
                     throw new AuthenticationException();
                 });
+
+            $user = $userToken->getUser();
+
+            $user->setCurrentToken($userToken);
 
             return $user;
         });
