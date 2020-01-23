@@ -12,7 +12,7 @@ $router->namespace('Api')->prefix('api')->group(function (Router $router) {
         $router->post('dispense', 'Dispense');
     });
 
-    $router->namespace('Password')->prefix('password')->group(function (Router $router) {
+    $router->namespace('Password')->prefix('password')->middleware('throttle:5,15,spa_password_reset_lock')->group(function (Router $router) {
         $router->post('reset', 'Reset');
         $router->post('forgotten', 'Forgotten');
     });

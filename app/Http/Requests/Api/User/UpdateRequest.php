@@ -29,8 +29,8 @@ final class UpdateRequest extends FormRequest
         $user = $this->route()->parameter('user');
 
         return [
-            'name'  => ['required', 'max:191', 'string'],
-            'email' => ['required', 'max:191', 'email', Rule::unique('users', 'email')->ignore($user)],
+            'name'  => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'max:191', 'email', Rule::unique('users', 'email')->ignore($user)],
         ];
     }
 }

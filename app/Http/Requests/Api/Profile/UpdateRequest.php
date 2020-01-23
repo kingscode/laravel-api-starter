@@ -27,8 +27,14 @@ final class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => ['required', 'max:191', 'string'],
-            'email' => ['required', 'max:191', 'email', Rule::unique('users', 'email')->ignore($this->user())],
+            'name'  => ['required', 'string', 'max:191'],
+            'email' => [
+                'required',
+                'string',
+                'max:191',
+                'email',
+                Rule::unique('users', 'email')->ignore($this->user()),
+            ],
         ];
     }
 }

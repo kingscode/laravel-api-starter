@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Http\Requests\Api\User\IndexRequest;
 use App\Http\Resources\Api\UserResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use KoenHoeijmakers\LaravelFilterable\Contracts\Filtering;
 
 final class Index
@@ -20,7 +20,7 @@ final class Index
         $this->filtering = $filtering;
     }
 
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(IndexRequest $request): JsonResponse
     {
         $builder = User::query();
 

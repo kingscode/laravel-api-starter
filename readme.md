@@ -11,13 +11,7 @@ Our base `laravel/laravel` installation for `vue` front-end applications.
 composer create-project kingscode/laravel-api-starter --stability=dev --prefer-source
 ```
 
-Then after following the [installation](#installation) steps you'll have an OAuth client with the credentials:
-```bash
-id: 1
-secret: 384WFKbLe729R2fw7ZRvK1DuGVwpAhct774DYkTI
-```
-
-There'll also be a default user with the credentials:
+After install there will be a default user with the following credentials.
 ```bash
 email: info@kingscode.nl
 password: secret
@@ -43,13 +37,11 @@ $ cp .env.example .env
 $ composer install
 $ pa key:generate
 $ pa migrate
-$ pa passport:keys
-$ pa passport:client --password
 $ pa db:seed
 ```
 
 ### Without Docker
-You can also run without Docker but you'll have to do the walk of atonement. 
+You can also run without Docker, but you'll have to do the walk of atonement. 
 
 Start by setting up your environment and installing dependencies.
 
@@ -63,9 +55,5 @@ And run the following commands to get it all booted up.
 $ composer install
 $ php artisan key:generate
 $ php artisan migrate
-$ php artisan passport:keys
-$ php artisan passport:client --password
 $ php artisan db:seed
 ```
-
-<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.explicit.bing.net%2Fth%3Fid%3DOIP.yP-yT-o8-1XeZ205ANoVKwHaD_%26pid%3DApi&f=1">
