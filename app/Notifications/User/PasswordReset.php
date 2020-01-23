@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Notifications\User;
 
 use App\Models\User;
+use App\SPA\UrlGenerator;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
-use function App\Support\front_url;
+use function app;
 use function config;
 use function http_build_query;
 
@@ -32,7 +33,9 @@ final class PasswordReset extends Notification
             'email' => $user->getEmailForPasswordReset(),
         ]);
 
-        $url = front_url('password/reset/' . $this->token . '?' . $query);
+        $url = $url = app(UrlGenerator::class)->to('password/reset/' . $this->token, [
+            'email' => $user->getEmailForPasswordReset(),
+        ]);
 
         return (new MailMessage())
             ->subject(Lang::get('Reset Password Notification'))

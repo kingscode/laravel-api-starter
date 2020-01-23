@@ -13,7 +13,7 @@ class ShowTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json('get', 'api/user/' . $user->getKey());
+        $response = $this->actingAs($user, 'api')->json('get', 'api/user/' . $user->getKey());
 
         $response->assertStatus(Response::HTTP_OK)->assertJson([
             'data' => [

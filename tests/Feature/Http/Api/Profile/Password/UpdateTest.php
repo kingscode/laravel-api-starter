@@ -13,7 +13,7 @@ class UpdateTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json('put', 'api/profile/password', [
+        $response = $this->actingAs($user, 'api')->json('put', 'api/profile/password', [
             'password'              => 'kingscodedotnl',
             'password_confirmation' => 'kingscodedotnl',
             'current_password'      => 'secret',
@@ -26,7 +26,7 @@ class UpdateTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json('put', 'api/profile/password', [
+        $response = $this->actingAs($user, 'api')->json('put', 'api/profile/password', [
             'password'              => 'kingscodedotnl',
             'password_confirmation' => 'kingscodedotnl',
             'current_password'      => 'secretiswrong',
@@ -41,7 +41,7 @@ class UpdateTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json('put', 'api/profile/password');
+        $response = $this->actingAs($user, 'api')->json('put', 'api/profile/password');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'password', 'current_password',

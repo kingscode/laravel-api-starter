@@ -9,35 +9,16 @@ use Illuminate\Http\Request;
 
 final class LocaleSelector
 {
-    /**
-     * @var \Illuminate\Contracts\Config\Repository
-     */
-    protected $config;
+    private Repository $config;
 
-    /**
-     * @var \Illuminate\Contracts\Translation\Translator
-     */
-    protected $translator;
+    private Translator $translator;
 
-    /**
-     * SetLocaleFromHeader constructor.
-     *
-     * @param  \Illuminate\Contracts\Config\Repository      $config
-     * @param  \Illuminate\Contracts\Translation\Translator $translator
-     */
     public function __construct(Repository $config, Translator $translator)
     {
         $this->config = $config;
         $this->translator = $translator;
     }
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
         if ($request->headers->has('Accept-Language')) {

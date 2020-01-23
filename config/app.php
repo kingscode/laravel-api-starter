@@ -54,8 +54,6 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'front_url' => env('FRONT_URL', 'http://localhost:8080'),
-
     'asset_url' => env('ASSET_URL', null),
 
     /*
@@ -176,6 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SPAServiceProvider::class,
 
     ],
 

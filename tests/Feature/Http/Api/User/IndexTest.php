@@ -13,7 +13,7 @@ class IndexTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user)->json('get', 'api/user');
+        $response = $this->actingAs($user, 'api')->json('get', 'api/user');
 
         $response->assertStatus(Response::HTTP_OK)->assertJson([
             'data' => [
@@ -35,7 +35,7 @@ class IndexTest extends TestCase
             'name' => 'bbb',
         ]);
 
-        $response = $this->actingAs($user1)->json('get', 'api/user?name=bbb');
+        $response = $this->actingAs($user1, 'api')->json('get', 'api/user?name=bbb');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -51,7 +51,7 @@ class IndexTest extends TestCase
             'email' => 'support@kingscode.nl',
         ]);
 
-        $response = $this->actingAs($user1)->json('get', 'api/user?email=support');
+        $response = $this->actingAs($user1, 'api')->json('get', 'api/user?email=support');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -67,7 +67,7 @@ class IndexTest extends TestCase
             'name' => 'aaa',
         ]);
 
-        $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=name&desc=0');
+        $response = $this->actingAs($user1, 'api')->json('get', 'api/user?sortBy=name&desc=0');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -83,7 +83,7 @@ class IndexTest extends TestCase
             'name' => 'aaa',
         ]);
 
-        $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=name&desc=1');
+        $response = $this->actingAs($user1, 'api')->json('get', 'api/user?sortBy=name&desc=1');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -99,7 +99,7 @@ class IndexTest extends TestCase
             'email' => 'b@kingscode.nl',
         ]);
 
-        $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=email&desc=0');
+        $response = $this->actingAs($user1, 'api')->json('get', 'api/user?sortBy=email&desc=0');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -115,7 +115,7 @@ class IndexTest extends TestCase
             'email' => 'b@kingscode.nl',
         ]);
 
-        $response = $this->actingAs($user1)->json('get', 'api/user?sortBy=email&desc=1');
+        $response = $this->actingAs($user1, 'api')->json('get', 'api/user?sortBy=email&desc=1');
 
         $response->assertStatus(Response::HTTP_OK);
 

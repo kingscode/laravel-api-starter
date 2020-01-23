@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Notifications\User;
 
 use App\Models\User;
+use App\SPA\UrlGenerator;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
-use function App\Support\front_url;
 use function config;
-use function http_build_query;
 
 final class Invitation extends Notification
 {
@@ -28,11 +27,9 @@ final class Invitation extends Notification
 
     public function toMail(User $user): MailMessage
     {
-        $query = http_build_query([
+        $url = app(UrlGenerator::class)->to('invitation/accept/' . $this->token, [
             'email' => $user->getEmailForPasswordReset(),
         ]);
-
-        $url = front_url('invitation/accept/' . $this->token . '?' . $query);
 
         return (new MailMessage())
             ->subject(Lang::get('Account Invitation Notification'))

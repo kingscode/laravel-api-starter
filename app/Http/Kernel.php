@@ -43,6 +43,7 @@ final class Kernel extends HttpKernel
         ConvertEmptyStringsToNull::class,
         TrustProxies::class,
         Cors::class,
+        SetCacheHeaders::class,
     ];
 
     /**

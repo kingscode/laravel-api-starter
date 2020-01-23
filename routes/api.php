@@ -7,35 +7,38 @@ use Illuminate\Routing\Router;
 // @formatter:off
 
 $router->namespace('Api')->prefix('api')->group(function (Router $router) {
-    $router->namespace('Password')->prefix('password')->name('password.')->group(function (Router $router) {
-        $router->post('reset', 'Reset')->name('reset');
-        $router->post('forgotten', 'Forgotten')->name('reset');
+    $router->namespace('Auth')->prefix('auth')->middleware('throttle:5,15,spa_login_lock')->group(function (Router $router) {
+        $router->post('login', 'Login');
+        $router->post('dispense', 'Dispense');
     });
 
-    $router->namespace('Invitation')->prefix('invitation')->name('invitation.')->group(function (Router $router) {
-        $router->post('accept', 'Accept')->name('accept');
+    $router->namespace('Password')->prefix('password')->group(function (Router $router) {
+        $router->post('reset', 'Reset');
+        $router->post('forgotten', 'Forgotten');
+    });
+
+    $router->namespace('Invitation')->prefix('invitation')->group(function (Router $router) {
+        $router->post('accept', 'Accept');
     });
 
     $router->middleware('auth:api')->group(function (Router $router) {
-        $router->namespace('Profile')->prefix('profile')->name('profile.')->group(function (Router $router) {
-            $router->namespace('Password')->prefix('password')->name('password.')->group(function (Router $router) {
-                $router->put('', 'Update')->name('update');
+        $router->namespace('Profile')->prefix('profile')->group(function (Router $router) {
+            $router->namespace('Password')->prefix('password')->group(function (Router $router) {
+                $router->put('', 'Update');
             });
 
-            $router->put('', 'Update')->name('update');
-            $router->get('', 'Show')->name('show');
+            $router->put('', 'Update');
+            $router->get('', 'Show');
         });
 
-        $router->namespace('User')->prefix('user')->name('user.')->group(function (Router $router) {
-            $router->delete('{user}', 'Destroy')->name('destroy');
-            $router->put('{user}', 'Update')->name('update');
-            $router->get('{user}', 'Show')->name('show');
-            $router->post('', 'Store')->name('store');
-            $router->get('', 'Index')->name('index');
+        $router->namespace('User')->prefix('user')->group(function (Router $router) {
+            $router->delete('{user}', 'Destroy');
+            $router->put('{user}', 'Update');
+            $router->get('{user}', 'Show');
+            $router->post('', 'Store');
+            $router->get('', 'Index');
         });
     });
-
-    $router->post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')->name('passport.token');
 });
 
 // @formatter:on

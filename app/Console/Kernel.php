@@ -23,6 +23,7 @@ final class Kernel extends ConsoleKernel
      *
      * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
+     * @codeCoverageIgnore
      */
     protected function schedule(Schedule $schedule)
     {
