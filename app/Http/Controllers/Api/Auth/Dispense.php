@@ -67,7 +67,7 @@ final class Dispense
             $user->tokens()->create(['token' => $token = Str::random(128)]);
 
             return $this->responseFactory->redirectTo($url . '#token=' . $token);
-        } catch (TokenExpired $e) {
+        } catch (TokenExpired $exception) {
             return $this->responseFactory->redirectTo($url);
         }
     }

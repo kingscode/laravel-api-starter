@@ -21,8 +21,20 @@ final class User extends Authenticatable
         'deleting' => Deleting::class,
     ];
 
+    private ?UserToken $currentToken = null;
+
     public function tokens(): HasMany
     {
         return $this->hasMany(UserToken::class);
+    }
+
+    public function setCurrentToken(UserToken $token)
+    {
+        $this->currentToken = $token;
+    }
+
+    public function getCurrentToken()
+    {
+        return $this->currentToken;
     }
 }

@@ -23,14 +23,4 @@ final class SPAServiceProvider extends ServiceProvider
 
         $this->app->singleton(UrlGenerator::class, fn() => new UrlGenerator($config->get('spa.url')));
     }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot(): void
-    {
-        //
-    }
 }

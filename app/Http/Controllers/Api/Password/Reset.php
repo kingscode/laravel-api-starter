@@ -65,7 +65,7 @@ final class Reset
 
         return $this->responseFactory->json([
             'message' => $this->translator->get(PasswordBroker::INVALID_TOKEN),
-        ],  Response::HTTP_BAD_REQUEST);
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     private function getPasswordBroker(): PasswordBroker

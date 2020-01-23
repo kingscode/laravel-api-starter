@@ -22,6 +22,10 @@ $router->namespace('Api')->prefix('api')->group(function (Router $router) {
     });
 
     $router->middleware('auth:api')->group(function (Router $router) {
+        $router->namespace('Auth')->prefix('auth')->group(function (Router $router) {
+            $router->post('logout', 'Logout');
+        });
+
         $router->namespace('Profile')->prefix('profile')->group(function (Router $router) {
             $router->namespace('Password')->prefix('password')->group(function (Router $router) {
                 $router->put('', 'Update');
