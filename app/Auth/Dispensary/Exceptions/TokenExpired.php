@@ -6,7 +6,7 @@ namespace App\Auth\Dispensary\Exceptions;
 
 use Exception;
 
-final class TokenExpired extends Exception
+final class TokenExpiredException extends Exception
 {
     //
 }
