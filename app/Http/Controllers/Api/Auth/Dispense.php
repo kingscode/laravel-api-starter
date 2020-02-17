@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Auth\Dispensary\Exceptions\TokenExpiredException;
 use App\Auth\LoginDispensary;
 use App\Models\User;
+use App\Models\UserToken;
 use App\SPA\UrlGenerator;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
@@ -64,7 +65,11 @@ final class Dispense
                 return $this->responseFactory->redirectTo($url);
             }
 
-            $user->tokens()->create(['token' => $token = Str::random(128)]);
+            do {
+                $token = Str::random(128);
+            } while (UserToken::query()->where('token', $token)->doesntExist());
+
+            $user->tokens()->create(['token' => $token]);
 
             return $this->responseFactory->redirectTo($url . '#token=' . $token);
         } catch (TokenExpiredException $exception) {
