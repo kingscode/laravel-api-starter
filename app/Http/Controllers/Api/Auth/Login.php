@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Auth\Dispensary\Dispensary;
+use App\Auth\LoginDispensary;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -17,7 +17,7 @@ final class Login
 {
     private ResponseFactory $responseFactory;
 
-    private Dispensary $dispensary;
+    private LoginDispensary $dispensary;
 
     private Hasher $hasher;
 
@@ -25,7 +25,7 @@ final class Login
 
     public function __construct(
         ResponseFactory $responseFactory,
-        Dispensary $dispensary,
+        LoginDispensary $dispensary,
         Hasher $hasher,
         Translator $translator
     ) {
