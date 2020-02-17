@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Api\Auth;
 
 use App\Auth\Dispensary\Dispensary;
+use App\Auth\LoginDispensary;
 use App\Models\User;
 use App\SPA\UrlGenerator;
 use Illuminate\Contracts\Cache\Repository;
@@ -22,7 +23,7 @@ class DispenseTest extends TestCase
     {
         parent::setUp();
 
-        $this->dispensary = $this->app->make(Dispensary::class);
+        $this->dispensary = $this->app->make(LoginDispensary::class);
         $this->urlGenerator = $this->app->make(UrlGenerator::class);
     }
 

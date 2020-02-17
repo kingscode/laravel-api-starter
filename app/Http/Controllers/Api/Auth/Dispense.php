@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Auth;
 
-use App\Auth\Dispensary\Dispensary;
-use App\Auth\Dispensary\Exceptions\TokenExpired;
+use App\Auth\Dispensary\Exceptions\TokenExpiredException;
+use App\Auth\LoginDispensary;
 use App\Models\User;
 use App\SPA\UrlGenerator;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -20,14 +20,14 @@ final class Dispense
 
     private UrlGenerator $urlGenerator;
 
-    private Dispensary $dispensary;
+    private LoginDispensary $dispensary;
 
     private Translator $translator;
 
     public function __construct(
         ResponseFactory $responseFactory,
         UrlGenerator $urlGenerator,
-        Dispensary $dispensary,
+        LoginDispensary $dispensary,
         Translator $translator
     ) {
         $this->responseFactory = $responseFactory;
@@ -67,7 +67,7 @@ final class Dispense
             $user->tokens()->create(['token' => $token = Str::random(128)]);
 
             return $this->responseFactory->redirectTo($url . '#token=' . $token);
-        } catch (TokenExpired $exception) {
+        } catch (TokenExpiredException $exception) {
             return $this->responseFactory->redirectTo($url);
         }
     }
