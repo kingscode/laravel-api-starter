@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Api\Auth;
 
-use App\Auth\Dispensary\Dispensary;
 use App\Auth\LoginDispensary;
 use App\Models\User;
 use App\SPA\UrlGenerator;
@@ -14,7 +13,7 @@ use function parse_url;
 use const PHP_URL_FRAGMENT;
 
 /**
- * @property Dispensary   dispensary
+ * @property LoginDispensary   dispensary
  * @property UrlGenerator urlGenerator
  */
 class DispenseTest extends TestCase

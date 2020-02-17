@@ -17,31 +17,12 @@ class UpdateTest extends TestCase
 
         $response = $this->actingAs($user, 'api')->json('put', 'api/profile', [
             'name'  => 'King',
-            'email' => 'info@kingscode.nl',
         ]);
 
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('users', [
             'name'  => 'King',
-            'email' => 'info@kingscode.nl',
-        ]);
-    }
-
-    public function testValidationErrorWhenEmailAlreadyInUse()
-    {
-        $user = factory(User::class)->create();
-        factory(User::class)->create([
-            'email' => 'info@kingscode.nl',
-        ]);
-
-        $response = $this->actingAs($user, 'api')->json('put', 'api/profile', [
-            'name'  => 'King',
-            'email' => 'info@kingscode.nl',
-        ]);
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
-            'email',
         ]);
     }
 
@@ -52,7 +33,7 @@ class UpdateTest extends TestCase
         $response = $this->actingAs($user, 'api')->json('put', 'api/profile');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
-            'name', 'email',
+            'name',
         ]);
     }
 }

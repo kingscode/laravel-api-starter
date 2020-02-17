@@ -27,6 +27,11 @@ $router->namespace('Api')->prefix('api')->group(function (Router $router) {
         });
 
         $router->namespace('Profile')->prefix('profile')->group(function (Router $router) {
+            $router->namespace('Email')->prefix('email')->group(function (Router $router) {
+                $router->post('verify', 'Verify');
+                $router->put('', 'Update');
+            });
+
             $router->namespace('Password')->prefix('password')->group(function (Router $router) {
                 $router->put('', 'Update');
             });
