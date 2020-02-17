@@ -37,4 +37,9 @@ final class User extends Authenticatable
     {
         return $this->currentToken;
     }
+
+    public function getEmail(): string
+    {
+        return $this->getAttributeValue('email');
+    }
 }

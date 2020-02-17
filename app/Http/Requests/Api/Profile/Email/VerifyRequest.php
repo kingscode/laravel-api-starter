@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Api\Profile;
+namespace App\Http\Requests\Api\Profile\Email;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class UpdateRequest extends FormRequest
+final class VerifyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,8 @@ final class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email'],
+            'token' => ['required', 'string'],
         ];
     }
 }
