@@ -67,7 +67,7 @@ final class Dispense
 
             do {
                 $token = Str::random(128);
-            } while (UserToken::query()->where('token', $token)->doesntExist());
+            } while (UserToken::query()->where('token', $token)->exists());
 
             $user->tokens()->create(['token' => $token]);
 
