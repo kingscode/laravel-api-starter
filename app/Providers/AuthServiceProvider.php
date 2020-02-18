@@ -30,13 +30,13 @@ final class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $this->registerDispensary();
+        $this->registerSpaRequestGuard();
     }
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    private function registerDispensary(): void
+    private function registerSpaRequestGuard(): void
     {
         /** @var AuthManager $authManager */
         $authManager = $this->app->make(AuthManager::class);
