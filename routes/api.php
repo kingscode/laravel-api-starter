@@ -6,7 +6,7 @@ use Illuminate\Routing\Router;
 
 // @formatter:off
 
-$router->namespace('Api')->prefix('api')->group(function (Router $router) {
+$router->namespace('Api')->group(function (Router $router) {
     $router->namespace('Auth')->prefix('auth')->middleware('throttle:5,15,spa_login_lock')->group(function (Router $router) {
         $router->post('login', 'Login');
         $router->post('dispense', 'Dispense');

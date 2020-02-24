@@ -15,7 +15,7 @@ class UpdateTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response = $this->actingAs($user, 'api')->json('put', 'api/profile', [
+        $response = $this->actingAs($user, 'api')->json('put', 'profile', [
             'name'  => 'King',
         ]);
 
@@ -30,7 +30,7 @@ class UpdateTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user, 'api')->json('put', 'api/profile');
+        $response = $this->actingAs($user, 'api')->json('put', 'profile');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'name',

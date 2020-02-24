@@ -16,7 +16,7 @@ class AcceptTest extends TestCase
 
         $token = $this->app->make(PasswordBrokerManager::class)->broker('user-invitations')->createToken($user);
 
-        $response = $this->json('post', 'api/invitation/accept', [
+        $response = $this->json('post', 'invitation/accept', [
             'email'                 => $user->email,
             'token'                 => $token,
             'password'              => 'kingscodedotnl',
@@ -30,7 +30,7 @@ class AcceptTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->json('post', 'api/invitation/accept', [
+        $response = $this->json('post', 'invitation/accept', [
             'email'                 => $user->email,
             'token'                 => 'does-not-exist',
             'password'              => 'kingscodedotnl',
@@ -42,7 +42,7 @@ class AcceptTest extends TestCase
 
     public function testValidationErrors()
     {
-        $response = $this->json('post', 'api/invitation/accept');
+        $response = $this->json('post', 'invitation/accept');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'token', 'email', 'password',

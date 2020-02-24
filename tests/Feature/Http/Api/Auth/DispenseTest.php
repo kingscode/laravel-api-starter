@@ -34,7 +34,7 @@ class DispenseTest extends TestCase
 
         $token = $this->dispensary->dispense($user);
 
-        $response = $this->json('post', 'api/auth/dispense', [
+        $response = $this->json('post', 'auth/dispense', [
             'email' => $user->email,
             'token' => $token,
         ]);
@@ -56,7 +56,7 @@ class DispenseTest extends TestCase
 
         $token = $this->dispensary->dispense($user);
 
-        $response = $this->json('post', 'api/auth/dispense', [
+        $response = $this->json('post', 'auth/dispense', [
             'email'        => $user->email,
             'token'        => $token,
             'redirect_uri' => 'to-here',
@@ -73,7 +73,7 @@ class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenNoDataIsSentInRequest()
     {
-        $response = $this->json('post', 'api/auth/dispense');
+        $response = $this->json('post', 'auth/dispense');
 
         $redirectUri = $response->headers->get('Location');
 
@@ -93,7 +93,7 @@ class DispenseTest extends TestCase
 
         $cache->clear();
 
-        $response = $this->json('post', 'api/auth/dispense', [
+        $response = $this->json('post', 'auth/dispense', [
             'email' => $user->email,
             'token' => $token,
         ]);
@@ -111,7 +111,7 @@ class DispenseTest extends TestCase
 
         $token = $this->dispensary->dispense($user);
 
-        $response = $this->json('post', 'api/auth/dispense', [
+        $response = $this->json('post', 'auth/dispense', [
             'email' => $user->email,
             'token' => 'shizzlepizza',
         ]);
@@ -128,7 +128,7 @@ class DispenseTest extends TestCase
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
-        $response = $this->json('post', 'api/auth/dispense', [
+        $response = $this->json('post', 'auth/dispense', [
             'email' => 'info@kingscode.nl',
             'token' => 'shizzlepizza',
         ]);

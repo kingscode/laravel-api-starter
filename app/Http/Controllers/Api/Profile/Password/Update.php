@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Profile\Password;
 
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Profile\Password\UpdateRequest;
-use App\Http\Resources\Api\UserResource;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 final class Update
 {
+    private ResponseFactory $responseFactory;
+
     private Hasher $hasher;
 
-    public function __construct(Hasher $hasher)
+    public function __construct(ResponseFactory $responseFactory, Hasher $hasher)
     {
         $this->hasher = $hasher;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(Guard $guard, UpdateRequest $request): JsonResponse
+    public function __invoke(Guard $guard, UpdateRequest $request): Response
     {
         /** @var \App\Models\User $user */
         $user = $guard->user();
@@ -28,6 +31,6 @@ final class Update
             'password' => $this->hasher->make($request->input('password')),
         ]);
 
-        return (new UserResource($user))->toResponse($request);
+        return $this->responseFactory->noContent(Response::HTTP_OK);
     }
 }

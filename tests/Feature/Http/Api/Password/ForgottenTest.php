@@ -19,7 +19,7 @@ class ForgottenTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response = $this->json('post', 'api/password/forgotten', [
+        $response = $this->json('post', 'password/forgotten', [
             'email' => 'info@kingscode.nl',
         ]);
 
@@ -30,7 +30,7 @@ class ForgottenTest extends TestCase
 
     public function testStatusIsOkEvenWhenUserDoesntExist()
     {
-        $response = $this->json('post', 'api/password/forgotten', [
+        $response = $this->json('post', 'password/forgotten', [
             'email' => 'info@kingscode.nl',
         ]);
 
@@ -39,7 +39,7 @@ class ForgottenTest extends TestCase
 
     public function testValidationErrors()
     {
-        $response = $this->json('post', 'api/password/forgotten');
+        $response = $this->json('post', 'password/forgotten');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'email',

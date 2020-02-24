@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Contracts\Http\Responses\ResponseFactory as ResponseFactoryContract;
+use App\Http\Responses\ResponseFactory;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 
@@ -31,6 +34,13 @@ final class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes($router);
 
         $this->mapWebRoutes($router);
+    }
+
+    public function register()
+    {
+        $this->app->singleton(ResponseFactoryContract::class, function (Container $container) {
+            return $container->make(ResponseFactory::class);
+        });
     }
 
     /**

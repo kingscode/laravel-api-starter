@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\User\StoreRequest;
-use App\Http\Resources\Api\UserResource;
 use App\Models\User;
 use App\Notifications\User\Invitation;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Notifications\Dispatcher;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -21,13 +21,19 @@ final class Store
 
     private PasswordBrokerManager $passwordBrokerManager;
 
-    public function __construct(Dispatcher $notificationDispatcher, PasswordBrokerManager $passwordBrokerManager)
-    {
+    private ResponseFactory $responseFactory;
+
+    public function __construct(
+        Dispatcher $notificationDispatcher,
+        PasswordBrokerManager $passwordBrokerManager,
+        ResponseFactory $responseFactory
+    ) {
         $this->notificationDispatcher = $notificationDispatcher;
         $this->passwordBrokerManager = $passwordBrokerManager;
+        $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(StoreRequest $request): JsonResponse
+    public function __invoke(StoreRequest $request): Response
     {
         $attributes = $request->validated();
 
@@ -41,7 +47,7 @@ final class Store
             new Invitation($this->getPasswordBroker()->createToken($user))
         );
 
-        return (new UserResource($user))->toResponse($request);
+        return $this->responseFactory->noContent(Response::HTTP_CREATED);
     }
 
     private function getPasswordBroker(): PasswordBroker

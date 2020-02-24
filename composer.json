@@ -26,7 +26,8 @@
         "nunomaduro/collision": "^3.0",
         "nunomaduro/phpinsights": "^1.11",
         "phpunit/phpunit": "^8.5",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "ext-json": "*"
     },
     "config": {
         "optimize-autoloader": true,

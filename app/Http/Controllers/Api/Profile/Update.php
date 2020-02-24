@@ -4,14 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Profile;
 
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Profile\UpdateRequest;
-use App\Http\Resources\Api\UserResource;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 final class Update
 {
-    public function __invoke(Guard $guard, UpdateRequest $request): JsonResponse
+    private ResponseFactory $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
+    {
+        $this->responseFactory = $responseFactory;
+    }
+
+    public function __invoke(Guard $guard, UpdateRequest $request): Response
     {
         /** @var \App\Models\User $user */
         $user = $guard->user();
@@ -20,6 +27,6 @@ final class Update
             $request->validated()
         );
 
-        return (new UserResource($user))->toResponse($request);
+        return $this->responseFactory->noContent(Response::HTTP_OK);
     }
 }

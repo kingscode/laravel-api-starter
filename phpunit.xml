@@ -21,6 +21,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
+            <exclude>
+                <file>./app/Http/Responses/ResponseFactory.php</file>
+            </exclude>
         </whitelist>
     </filter>
     <php>

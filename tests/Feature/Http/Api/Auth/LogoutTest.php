@@ -18,7 +18,7 @@ class LogoutTest extends TestCase
         ]);
         $user->tokens()->create(['token' => 'yayeet']);
 
-        $response = $this->json('post', 'api/auth/logout', [], [
+        $response = $this->json('post', 'auth/logout', [], [
             Header::AUTHORIZATION => 'Bearer yayeet',
         ]);
 

@@ -16,7 +16,7 @@ class ResetTest extends TestCase
 
         $token = $this->app->make(PasswordBrokerManager::class)->broker('users')->createToken($user);
 
-        $response = $this->json('post', 'api/password/reset', [
+        $response = $this->json('post', 'password/reset', [
             'email'                 => $user->email,
             'token'                 => $token,
             'password'              => 'kingscodedotnl',
@@ -30,7 +30,7 @@ class ResetTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->json('post', 'api/password/reset', [
+        $response = $this->json('post', 'password/reset', [
             'email'                 => $user->email,
             'token'                 => 'does-not-exist',
             'password'              => 'kingscodedotnl',
@@ -42,7 +42,7 @@ class ResetTest extends TestCase
 
     public function testValidationErrors()
     {
-        $response = $this->json('post', 'api/password/reset');
+        $response = $this->json('post', 'password/reset');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'token', 'email', 'password',

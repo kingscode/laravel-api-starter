@@ -1,0 +1,392 @@
+openapi: "3.0.2"
+
+info:
+  title: Laravel API Starter Documentation
+  description: Laravel API Starter Documentation
+  version: "2.1"
+  termsOfService: https://github.com/kingscode/laravel-api-starter
+  contact:
+    name: Kings Code
+    url: https://kingscode.nl
+
+paths:
+  /auth/dispense:
+    post:
+      description: Dispense a new token
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+                - token
+              properties:
+                redirect_uri:
+                  type: string
+                email:
+                  type: string
+                token:
+                  type: string
+      responses:
+        302:
+          description: All is good and the user will be redirected back to the website.
+        422:
+          description: The resource had validation errors.
+  /auth/login:
+    post:
+      description: Request a login.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: The resource was stored.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        token:
+                          type: string
+        422:
+          description: The request had validation errors.
+  /auth/logout:
+    post:
+      security:
+        - BearerAuth: []
+      description: Log out the given user (invalidate the used token).
+      responses:
+        200:
+          description: The token was invalidated.
+  /invitation/accept:
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+                - token
+                - password
+                - password_confirmation
+              properties:
+                email:
+                  type: string
+                token:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+      responses:
+        200:
+          description: Password has been reset.
+        400:
+          description: Something went wrong.
+  /password/forgotten:
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: Password forgotten email has been sent if the user exists.
+  /password/reset:
+    post:
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+                - token
+                - password
+                - password_confirmation
+              properties:
+                email:
+                  type: string
+                token:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+      responses:
+        200:
+          description: Password has been reset.
+        400:
+          description: Something went wrong.
+  /profile:
+    get:
+      security:
+        - BearerAuth: []
+      description: Get the profile of the logged in user.
+      responses:
+        200:
+          description: All is ok.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  is_admin:
+                    type: boolean
+                  is_business:
+                    type: boolean
+                  can_order_on_invoice:
+                    type: boolean
+    put:
+      security:
+        - BearerAuth: []
+      description: Update the profile of the logged in user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        200:
+          description: Profile updated.
+        422:
+          description: Validation errors.
+  /profile/email:
+    put:
+      security:
+        - BearerAuth: []
+      description: Update the email of the logged in user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+      responses:
+        200:
+          description: Password updated.
+        422:
+          description: Validation errors.
+  /profile/email/verify:
+    post:
+      security:
+        - BearerAuth: []
+      description: Update the email of the logged in user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+                - token
+              properties:
+                email:
+                  type: string
+                token:
+                  type: string
+      responses:
+        200:
+          description: Password updated.
+        422:
+          description: Validation errors.
+  /profile/password:
+    put:
+      security:
+        - BearerAuth: []
+      description: Update the password of the logged in user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - password
+                - password_confirmation
+                - current_password
+              properties:
+                password:
+                  type: string
+                  maxLength: 191
+                  minLength: 10
+                password_confirmation:
+                  type: string
+                current_password:
+                  type: string
+      responses:
+        200:
+          description: Password updated.
+        422:
+          description: Validation errors.
+  /user:
+    get:
+      security:
+        - BearerAuth: []
+      description: Get paginated Users.
+      parameters:
+        - name: perPage
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: sortBy
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [name, email]
+            default: name
+        - name: desc
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        200:
+          description: A paginated index of users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        email:
+                          type: string
+    post:
+      security:
+        - BearerAuth: []
+      description: Store a new user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        200:
+          description: The resource was stored.
+        422:
+          description: The resource had validation errors.
+  /user/{user}:
+    parameters:
+      - name: user
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      security:
+        - BearerAuth: []
+      description: Retrieve the given User.
+      responses:
+        200:
+          description: The user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        email:
+                          type: string
+    put:
+      security:
+        - BearerAuth: []
+      description: Update the user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        200:
+          description: The resource was updated.
+        404:
+          description: Not found.
+        422:
+          description: The resource had validation errors.
+
+    delete:
+      security:
+        - BearerAuth: []
+      description: Delete the resource.
+      responses:
+        200:
+          description: The resource was deleted.
+        409:
+          description: The resource was not deleted due to a conflict.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer

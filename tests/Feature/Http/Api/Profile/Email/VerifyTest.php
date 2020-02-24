@@ -29,7 +29,7 @@ class VerifyTest extends TestCase
 
         $token = $this->dispensary->dispense($user, $email);
 
-        $response = $this->actingAs($user, 'api')->json('post', 'api/profile/email/verify', [
+        $response = $this->actingAs($user, 'api')->json('post', 'profile/email/verify', [
             'email' => $email,
             'token' => $token,
         ]);
@@ -45,7 +45,7 @@ class VerifyTest extends TestCase
 
         $this->dispensary->dispense($user, $email);
 
-        $response = $this->actingAs($user, 'api')->json('post', 'api/profile/email/verify', [
+        $response = $this->actingAs($user, 'api')->json('post', 'profile/email/verify', [
             'email' => $email,
             'token' => 'zigzagzog',
         ]);
@@ -66,7 +66,7 @@ class VerifyTest extends TestCase
 
         $cache->clear();
 
-        $response = $this->actingAs($user, 'api')->json('post', 'api/profile/email/verify', [
+        $response = $this->actingAs($user, 'api')->json('post', 'profile/email/verify', [
             'email' => $email,
             'token' => $token,
         ]);
@@ -78,7 +78,7 @@ class VerifyTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->actingAs($user, 'api')->json('post', 'api/profile/email/verify');
+        $response = $this->actingAs($user, 'api')->json('post', 'profile/email/verify');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'email', 'token',

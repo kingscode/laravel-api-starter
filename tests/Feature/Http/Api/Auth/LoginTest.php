@@ -16,7 +16,7 @@ class LoginTest extends TestCase
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
-        $response = $this->json('post', 'api/auth/login', [
+        $response = $this->json('post', 'auth/login', [
             'email'    => $user->email,
             'password' => 'kingscodedotnl',
         ]);
@@ -32,7 +32,7 @@ class LoginTest extends TestCase
 
     public function testNonExistentEmail()
     {
-        $response = $this->json('post', 'api/auth/login', [
+        $response = $this->json('post', 'auth/login', [
             'email'    => 'info@kingscode.nl',
             'password' => 'kingscodedotnl',
         ]);
@@ -48,7 +48,7 @@ class LoginTest extends TestCase
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
-        $response = $this->json('post', 'api/auth/login', [
+        $response = $this->json('post', 'auth/login', [
             'email'    => $user->email,
             'password' => 'pooper',
         ]);
@@ -60,7 +60,7 @@ class LoginTest extends TestCase
 
     public function testValidationErrors()
     {
-        $response = $this->json('post', 'api/auth/login');
+        $response = $this->json('post', 'auth/login');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'email', 'password',
