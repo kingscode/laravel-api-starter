@@ -16,14 +16,14 @@ interface ResponseFactory
      * @param  array  $headers
      * @return Response
      */
-    public function make($content = '', $status = 200, array $headers = []): Response;
+    public function make(string $content = '', int $status = 200, array $headers = []): Response;
 
     /**
      * @param  int   $status
      * @param  array $headers
      * @return Response
      */
-    public function noContent($status = Response::HTTP_NO_CONTENT, array $headers = []): Response;
+    public function noContent(int $status = Response::HTTP_NO_CONTENT, array $headers = []): Response;
 
     /**
      * @param  string|array|object $data
@@ -32,7 +32,7 @@ interface ResponseFactory
      * @param  int                 $options
      * @return JsonResponse
      */
-    public function json($data = [], $status = Response::HTTP_OK, array $headers = [], $options = 0): JsonResponse;
+    public function json(array $data = [], int $status = Response::HTTP_OK, array $headers = [], int $options = 0): JsonResponse;
 
     /**
      * @param  \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $paginator

@@ -14,7 +14,7 @@ final class ResponseFactory implements ResponseFactoryContract
     /**
      * @inheritDoc
      */
-    public function make($content = '', $status = Response::HTTP_OK, array $headers = []): Response
+    public function make(string $content = '', int $status = Response::HTTP_OK, array $headers = []): Response
     {
         return new Response($content, $status, $headers);
     }
@@ -22,7 +22,7 @@ final class ResponseFactory implements ResponseFactoryContract
     /**
      * @inheritDoc
      */
-    public function noContent($status = Response::HTTP_NO_CONTENT, array $headers = []): Response
+    public function noContent(int $status = Response::HTTP_NO_CONTENT, array $headers = []): Response
     {
         return $this->make('', $status, $headers);
     }
@@ -30,7 +30,7 @@ final class ResponseFactory implements ResponseFactoryContract
     /**
      * @inheritDoc
      */
-    public function json($data = [], $status = Response::HTTP_OK, array $headers = [], $options = 0): JsonResponse
+    public function json(array $data = [], int $status = Response::HTTP_OK, array $headers = [], int $options = 0): JsonResponse
     {
         if (! array_key_exists('data', $data)) {
             $data = ['data' => $data];
