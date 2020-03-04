@@ -14,12 +14,10 @@ class CreateUserTokensTable extends Migration
     public function up()
     {
         Schema::create('user_tokens', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->id();
+            $table->foreignId('user_id');
             $table->string('token')->unique();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
