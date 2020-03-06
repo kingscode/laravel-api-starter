@@ -1,35 +1,16 @@
 build:
   nodes:
     analysis:
-      services:
-        mariadb: 10
       environment:
-        variables:
-          DB_DATABASE: 'scrutinizer'
-          DB_USERNAME: 'root'
-          DB_PASSWORD: ''
         php:
           version: 7.4
-      project_setup:
-        override:
-          - 'true'
       tests:
-        before:
-          - command: mysql -u root -e "CREATE DATABASE scrutinizer;"
-          - command: php ./artisan migrate
         override:
-          - command: ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
-            coverage:
-              file: coverage.clover
-              format: clover
           - php-scrutinizer-run
 
 filter:
   paths:
     - 'app/*'
-  excluded_paths:
-    - 'app/views/*'
-    - 'app/config/*'
-    - 'app/database/*'
+
 checks:
   php: true
