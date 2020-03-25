@@ -20,7 +20,7 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Handle HTTP Calls
+#    # Handle HTTP Calls
 #    RewriteCond %{REMOTE_ADDR} !=127.0.0.1
 #    RewriteCond %{REMOTE_ADDR} !=::1
 #    RewriteCond %{HTTPS} off
