@@ -21,10 +21,10 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Handle HTTP Calls
-    RewriteCond %{REMOTE_ADDR} !=127.0.0.1
-    RewriteCond %{REMOTE_ADDR} !=::1
-    RewriteCond %{HTTPS} off
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#    RewriteCond %{REMOTE_ADDR} !=127.0.0.1
+#    RewriteCond %{REMOTE_ADDR} !=::1
+#    RewriteCond %{HTTPS} off
+#    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
