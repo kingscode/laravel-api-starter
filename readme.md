@@ -6,9 +6,7 @@
 Our base `laravel/laravel` installation for `vue` front-end applications.
 
 ## Usage
-```bash
-composer create-project kingscode/laravel-api-starter --stability=dev --prefer-source
-```
+Use this repository as a template repository in github or clone the repository.
 
 After install there will be a default user with the following credentials.
 ```bash
