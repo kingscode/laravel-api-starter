@@ -64,7 +64,6 @@ final class Kernel extends HttpKernel
         ],
 
         'api' => [
-            LocaleSelector::class,
             SubstituteBindings::class,
         ],
     ];
