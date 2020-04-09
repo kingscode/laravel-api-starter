@@ -12,13 +12,18 @@ $router->namespace('Api')->group(function (Router $router) {
         $router->post('dispense', 'Dispense');
     });
 
+    $router->namespace('Invitation')->prefix('invitation')->group(function (Router $router) {
+        $router->post('accept', 'Accept');
+    });
+
     $router->namespace('Password')->prefix('password')->middleware('throttle:5,15,spa_password_reset_lock')->group(function (Router $router) {
         $router->post('reset', 'Reset');
         $router->post('forgotten', 'Forgotten');
     });
 
-    $router->namespace('Invitation')->prefix('invitation')->group(function (Router $router) {
-        $router->post('accept', 'Accept');
+    $router->namespace('Registration')->prefix('registration')->group(function (Router $router) {
+        $router->post('', 'Store');
+        $router->post('verify', 'Verify');
     });
 
     $router->middleware('auth:api')->group(function (Router $router) {
