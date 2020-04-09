@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Closure;
+
+final class {{ class }}
+{
+    public function handle($request, Closure $next)
+    {
+        return $next($request);
+    }
+}
