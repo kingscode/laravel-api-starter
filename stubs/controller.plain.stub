@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace {{ namespace }};
 
-use {{ namespacedUserModel }};
+use Illuminate\Http\Request;
 
 final class {{ class }}
 {
