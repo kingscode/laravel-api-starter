@@ -30,8 +30,12 @@ final class ResponseFactory implements ResponseFactoryContract
     /**
      * @inheritDoc
      */
-    public function json(array $data = [], int $status = Response::HTTP_OK, array $headers = [], int $options = 0): JsonResponse
-    {
+    public function json(
+        array $data = [],
+        int $status = Response::HTTP_OK,
+        array $headers = [],
+        int $options = 0
+    ): JsonResponse {
         if (! array_key_exists('data', $data)) {
             $data = ['data' => $data];
         }

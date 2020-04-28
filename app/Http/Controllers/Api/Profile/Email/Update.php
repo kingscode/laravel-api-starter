@@ -37,7 +37,10 @@ final class Update
         /** @var \App\Models\User $user */
         $user = $guard->user();
 
-        $canUpdate = User::query()->whereKeyNot($user->getKey())->where('email', $request->input('email'))->doesntExist();
+        $canUpdate = User::query()
+            ->whereKeyNot($user->getKey())
+            ->where('email', $request->input('email'))
+            ->doesntExist();
 
         if ($canUpdate) {
             $token = $this->dispensary->dispense($user, $request->input('email'));

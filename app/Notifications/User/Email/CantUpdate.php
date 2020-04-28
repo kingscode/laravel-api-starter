@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Notifications\User\Email;
 
-use App\Auth\EmailDispensary;
 use App\Models\User;
-use App\SPA\UrlGenerator;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Lang;
-use function config;
 
 final class CantUpdate extends Notification
 {

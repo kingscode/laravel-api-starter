@@ -13,8 +13,8 @@ use function parse_url;
 use const PHP_URL_FRAGMENT;
 
 /**
- * @property LoginDispensary   dispensary
- * @property UrlGenerator urlGenerator
+ * @property LoginDispensary dispensary
+ * @property UrlGenerator    urlGenerator
  */
 class DispenseTest extends TestCase
 {

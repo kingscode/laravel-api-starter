@@ -16,13 +16,13 @@ class UpdateTest extends TestCase
         ]);
 
         $response = $this->actingAs($user, 'api')->json('put', 'profile', [
-            'name'  => 'King',
+            'name' => 'King',
         ]);
 
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseHas('users', [
-            'name'  => 'King',
+            'name' => 'King',
         ]);
     }
 

@@ -32,7 +32,12 @@ interface ResponseFactory
      * @param  int                 $options
      * @return JsonResponse
      */
-    public function json(array $data = [], int $status = Response::HTTP_OK, array $headers = [], int $options = 0): JsonResponse;
+    public function json(
+        array $data = [],
+        int $status = Response::HTTP_OK,
+        array $headers = [],
+        int $options = 0
+    ): JsonResponse;
 
     /**
      * @param  \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $paginator
