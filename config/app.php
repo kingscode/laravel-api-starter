@@ -188,4 +188,5 @@ return [
         // We dont use aliases.
     ],
 
+    'throttling' => env('THROTTLING', true),
 ];
