@@ -9,6 +9,7 @@ use App\Auth\LoginDispensary;
 use App\Models\User;
 use App\Models\UserToken;
 use App\SPA\UrlGenerator;
+use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\RedirectResponse;
@@ -25,16 +26,20 @@ final class Dispense
 
     private Translator $translator;
 
+    private RateLimiter $rateLimiter;
+
     public function __construct(
         ResponseFactory $responseFactory,
         UrlGenerator $urlGenerator,
         LoginDispensary $dispensary,
-        Translator $translator
+        Translator $translator,
+        RateLimiter $rateLimiter
     ) {
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
         $this->dispensary = $dispensary;
         $this->translator = $translator;
+        $this->rateLimiter = $rateLimiter;
     }
 
     /**
@@ -70,6 +75,9 @@ final class Dispense
             } while (UserToken::query()->where('token', $token)->exists());
 
             $user->tokens()->create(['token' => $token]);
+
+            $this->rateLimiter->clear('auth_login');
+            $this->rateLimiter->clear('auth_dispense');
 
             return $this->responseFactory->redirectTo($url . '#token=' . $token);
         } catch (TokenExpiredException $exception) {
