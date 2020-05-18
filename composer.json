@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "koenhoeijmakers/headers": "^1.0",
         "koenhoeijmakers/laravel-filterable": "^4.4",
-        "laravel/framework": "^7.8",
+        "laravel/framework": "^7.11",
         "laravel/tinker": "^2.4",
         "sentry/sentry-laravel": "^1.7"
     },
