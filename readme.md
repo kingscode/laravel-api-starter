@@ -28,7 +28,7 @@ Then get into the `app` container.
 $ docker exec -it app bash
 ```
 
-And run the following commands.
+Where you'll run the following commands.
 ```bash
 $ cp .env.example .env
 $ composer install
@@ -47,7 +47,7 @@ Then run the following to copy the `.env` file and fill it accordingly:
 $ cp .env.example .env
 ```
 
-And run the following commands to get it all booted up.
+Then run the following commands to get it all booted up.
 ```bash
 $ composer install
 $ php artisan key:generate
