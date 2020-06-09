@@ -38,7 +38,7 @@ final class RouteServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(ResponseFactoryContract::class, function (Container $container) {
+        $this->app->singleton(ResponseFactoryContract::class, static function (Container $container) {
             return $container->make(ResponseFactory::class);
         });
     }

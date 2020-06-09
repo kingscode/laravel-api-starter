@@ -41,13 +41,13 @@ final class AuthServiceProvider extends ServiceProvider
         /** @var AuthManager $authManager */
         $authManager = $this->app->make(AuthManager::class);
 
-        $authManager->viaRequest('spa', function (Request $request): User {
+        $authManager->viaRequest('spa', static function (Request $request): User {
             /** @var UserToken $userToken */
             $userToken = UserToken::query()
                 ->with('user')
                 ->where('token', $request->bearerToken())
                 ->whereNotNull('token')
-                ->firstOr(function () {
+                ->firstOr(static function () {
                     throw new AuthenticationException();
                 });
 

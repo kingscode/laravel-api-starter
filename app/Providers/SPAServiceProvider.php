@@ -21,6 +21,6 @@ final class SPAServiceProvider extends ServiceProvider
         /** @var \Illuminate\Contracts\Config\Repository $config */
         $config = $this->app->make(Repository::class);
 
-        $this->app->singleton(UrlGenerator::class, fn() => new UrlGenerator($config->get('spa.url')));
+        $this->app->singleton(UrlGenerator::class, static fn() => new UrlGenerator($config->get('spa.url')));
     }
 }

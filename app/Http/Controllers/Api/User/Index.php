@@ -28,10 +28,10 @@ final class Index
         $builder = User::query()->select(['id', 'name', 'email']);
 
         $this->filtering->builder($builder)
-            ->filterFor('name', function (Builder $builder, string $value) {
+            ->filterFor('name', static function (Builder $builder, string $value) {
                 $builder->where('name', 'like', '%' . $value . '%');
             })
-            ->filterFor('email', function (Builder $builder, string $value) {
+            ->filterFor('email', static function (Builder $builder, string $value) {
                 $builder->where('email', 'like', '%' . $value . '%');
             })
             ->sortFor('name')
