@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Listeners\User;
+namespace App\Listeners\User\Deleting;
 
 use App\Events\User\Deleting;
 
-final class CleanUpWhenDeleting
+final class CleanUp
 {
     public function handle(Deleting $deleting)
     {

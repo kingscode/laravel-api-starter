@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
-class AcceptTest extends TestCase
+final class AcceptTest extends TestCase
 {
     public function test()
     {

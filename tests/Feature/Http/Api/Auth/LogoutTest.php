@@ -9,7 +9,7 @@ use Tests\TestCase;
 use function bcrypt;
 use function factory;
 
-class LogoutTest extends TestCase
+final class LogoutTest extends TestCase
 {
     public function test()
     {

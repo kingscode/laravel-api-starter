@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
 
-class IndexTest extends TestCase
+final class IndexTest extends TestCase
 {
     public function test()
     {

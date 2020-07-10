@@ -7,7 +7,7 @@ use App\Notifications\User\PasswordReset;
 use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
 
-class PasswordResetTest extends TestCase
+final class PasswordResetTest extends TestCase
 {
     public function testToMailReturnsMailMessage()
     {

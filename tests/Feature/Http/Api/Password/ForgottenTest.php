@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use Tests\TestCase;
 
-class ForgottenTest extends TestCase
+final class ForgottenTest extends TestCase
 {
     public function testMailGetsSentForNonExistentUser()
     {

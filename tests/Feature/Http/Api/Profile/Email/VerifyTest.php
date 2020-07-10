@@ -12,7 +12,7 @@ use function factory;
 /**
  * @property EmailDispensary dispensary
  */
-class VerifyTest extends TestCase
+final class VerifyTest extends TestCase
 {
     protected function setUp(): void
     {

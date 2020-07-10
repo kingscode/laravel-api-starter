@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Tests\TestCase;
 
-class ThrottleRequestsTest extends TestCase
+final class ThrottleRequestsTest extends TestCase
 {
     protected function setUp(): void
     {

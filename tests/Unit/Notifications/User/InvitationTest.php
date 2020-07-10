@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
 use function in_array;
 
-class InvitationTest extends TestCase
+final class InvitationTest extends TestCase
 {
     public function testToMailReturnsMailMessage()
     {

@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
 use function in_array;
 
-class CantUpdateTest extends TestCase
+final class CantUpdateTest extends TestCase
 {
     public function testToMailReturnsMailMessage()
     {

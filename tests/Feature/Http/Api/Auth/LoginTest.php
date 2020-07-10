@@ -8,7 +8,7 @@ use Tests\TestCase;
 use function bcrypt;
 use function factory;
 
-class LoginTest extends TestCase
+final class LoginTest extends TestCase
 {
     public function test()
     {

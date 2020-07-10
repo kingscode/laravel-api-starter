@@ -11,7 +11,7 @@ use Illuminate\Support\Testing\Fakes\NotificationFake;
 use Tests\TestCase;
 use function factory;
 
-class UpdateTest extends TestCase
+final class UpdateTest extends TestCase
 {
     public function testVerifyEmailIsSent()
     {

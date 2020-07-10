@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Tests\TestCase;
 
-class GuardTest extends TestCase
+final class GuardTest extends TestCase
 {
     protected function setUp(): void
     {

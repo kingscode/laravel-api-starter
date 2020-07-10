@@ -16,7 +16,7 @@ use const PHP_URL_FRAGMENT;
  * @property LoginDispensary dispensary
  * @property UrlGenerator    urlGenerator
  */
-class DispenseTest extends TestCase
+final class DispenseTest extends TestCase
 {
     protected function setUp(): void
     {
