@@ -3,7 +3,7 @@
 @endphp
 
 @component('mail::message')
-# Dear {{ $name }},
+# Dear,
 
 You are receiving this email because you've tried to create an account on [{{ config('app.name') }}]({{ $front_end_url }})<br>
 Please click on the button below to verify your account.
@@ -20,5 +20,3 @@ If you’re having trouble clicking the "Request new password" button, copy and 
 into your web browser: [{{ $verify_url }}]({{ $verify_url }})
 @endslot
 @endcomponent
-
-

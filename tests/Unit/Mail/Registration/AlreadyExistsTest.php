@@ -13,7 +13,7 @@ final class AlreadyExistsTest extends TestCase
     {
         $mailable = (new AlreadyExists());
 
-        $this->app->call([$mailable, 'build']);
+        $mailable->render();
 
         $this->assertArrayHasKey('front_end_url', $mailable->viewData);
         $this->assertArrayHasKey('password_forgotten_url', $mailable->viewData);

@@ -12,8 +12,7 @@ final class VerifyTest extends TestCase
     public function test()
     {
         $mailable = (new Verify('yayeeeeeeet', 'info@kingscode.nl'));
-
-        $this->app->call([$mailable, 'build']);
+        $mailable->render();
 
         $this->assertArrayHasKey('front_end_url', $mailable->viewData);
         $this->assertArrayHasKey('verify_url', $mailable->viewData);

@@ -27,11 +27,11 @@ final class Verify extends Mailable implements ShouldQueue
 
     public function build(UrlGenerator $urlGenerator)
     {
-        return $this->markdown('mail.agency.registration.verify')
+        return $this->markdown('mail.registration.verify')
             ->subject('Registration verification')
             ->with([
                 'front_end_url' => $urlGenerator->to(''),
-                'verify_url'    => $urlGenerator->to('agency/registration/verify') . "#token={$this->token}&email={$this->email}",
+                'verify_url'    => $urlGenerator->to('registration/verify') . "#token={$this->token}&email={$this->email}",
             ]);
     }
 }

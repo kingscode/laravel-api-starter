@@ -3,7 +3,7 @@
 @endphp
 
 @component('mail::message')
-# Dear {{ $name }},
+# Dear,
 
 Somebody has tried to create a new account but you already have one.
 If you have forgotten your password then you can request a new one.
