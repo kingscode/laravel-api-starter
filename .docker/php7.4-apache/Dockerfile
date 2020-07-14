@@ -1,16 +1,8 @@
 FROM php:7.4-apache
 
 RUN apt-get update \
-    && apt-get upgrade -y
-
-# xdebug
-RUN pecl install xdebug
-
-# phpredis
-RUN pecl install -o -f redis \
-    && rm -rf /tmp/pear
-
-RUN apt-get install -y \
+    && apt-get upgrade -y \
+    && apt-get install -y \
         # utils
         nano \
         unzip \
@@ -24,11 +16,14 @@ RUN apt-get install -y \
         libgmp-dev \
         # regex
         libonig-dev \
+    && pecl install -o -f redis \
+    && pecl install xdebug \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd mbstring zip mysqli pdo_mysql gmp \
+    && docker-php-ext-install -j$(nproc) gd mbstring zip mysqli pdo_mysql gmp pcntl \
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable redis \
-    && docker-php-source delete
+    && docker-php-source delete \
+    && rm -rf /tmp/pear
 
 # Create working directory
 RUN mkdir -p /var/www/
