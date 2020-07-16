@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -188,5 +188,17 @@ return [
         // We dont use aliases.
     ],
 
-    'throttling' => env('THROTTLING', true),
+    /*
+    |--------------------------------------------------------------------------
+    | Throttling
+    |--------------------------------------------------------------------------
+    |
+    | This feature allows you to disable throttling if needed,
+    | useful for dev environments where you don't want to
+    | get locked out of your app when developing the
+    | login functionality.
+    |
+    */
+
+    'throttling' => (bool) env('THROTTLING', true),
 ];

@@ -1,7 +1,6 @@
 # Laravel Api Starter
 
 ![PHPUnit](https://github.com/kingscode/laravel-api-starter/workflows/PHPUnit/badge.svg)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kingscode/laravel-api-starter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kingscode/laravel-api-starter/?branch=master)
 
 Our base `laravel/laravel` installation for `vue` front-end applications.
 
