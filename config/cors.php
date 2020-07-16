@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Header;
+
 return [
 
     /*
@@ -25,7 +27,16 @@ return [
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => false,
+    'exposed_headers' => [
+        Header::CACHE_CONTROL,
+        Header::CONTENT_LANGUAGE,
+        Header::CONTENT_LENGTH,
+        Header::CONTENT_TYPE,
+        Header::EXPIRES,
+        Header::LAST_MODIFIED,
+        Header::PRAGMA,
+        Header::RETRY_AFTER,
+    ],
 
     'max_age' => false,
 
