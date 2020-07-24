@@ -40,7 +40,7 @@ final class Index
             ->filter();
 
         $paginator = $builder->paginate(
-            $request->input('perPage')
+            $request->input('per_page')
         );
 
         return $this->responseFactory->paginator($paginator);

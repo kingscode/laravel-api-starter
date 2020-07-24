@@ -265,12 +265,12 @@ paths:
         - BearerAuth: []
       description: Get paginated Users.
       parameters:
-        - name: perPage
+        - name: per_page
           in: query
           required: false
           schema:
             type: integer
-        - name: sortBy
+        - name: sort_by
           in: query
           required: false
           schema:
