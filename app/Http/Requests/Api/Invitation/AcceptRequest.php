@@ -13,7 +13,7 @@ final class AcceptRequest extends FormRequest
         return [
             'token'    => ['required', 'string'],
             'email'    => ['required', 'string', 'email'],
-            'password' => ['required', 'string', 'min:10', 'max:191', 'confirmed'],
+            'password' => ['required', 'string', 'min:10', 'confirmed'],
         ];
     }
 }

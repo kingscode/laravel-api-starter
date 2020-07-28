@@ -16,7 +16,6 @@ final class UpdateRequest extends FormRequest
                 'required',
                 'string',
                 'min:10',
-                'max:191',
                 'confirmed',
             ],
             'current_password' => [

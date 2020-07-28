@@ -11,7 +11,7 @@ final class VerifyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'    => ['required', 'string', 'email', 'max:191'],
+            'email'    => ['required', 'string', 'email'],
             'token'    => ['required', 'string'],
             'password' => ['required', 'string', 'min:10', 'confirmed'],
         ];
