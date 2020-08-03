@@ -1,6 +1,8 @@
 <?php
 
-namespace Tests\Feature\Http\Api\Password;
+declare(strict_types=1);
+
+namespace Tests\Feature\Http\Api\Invitation;
 
 use App\Models\User;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;

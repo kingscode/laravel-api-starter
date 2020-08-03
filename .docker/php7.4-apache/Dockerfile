@@ -31,7 +31,7 @@ RUN mkdir -p /var/www/
 ENV APACHE_DOCUMENT_ROOT /var/www/public
 
 # Install composer from image. You may change it to the latest
-COPY --from=composer:v2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
