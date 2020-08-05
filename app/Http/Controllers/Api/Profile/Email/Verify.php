@@ -13,14 +13,8 @@ use Illuminate\Http\Response;
 
 final class Verify
 {
-    /**
-     * @var \App\Auth\EmailDispensary
-     */
     private EmailDispensary $dispensary;
 
-    /**
-     * @var \Illuminate\Contracts\Routing\ResponseFactory
-     */
     private ResponseFactory $responseFactory;
 
     public function __construct(EmailDispensary $dispensary, ResponseFactory $responseFactory)

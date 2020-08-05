@@ -13,9 +13,6 @@ final class RegistrationDispensary
     const TTL = 1800;
     const CHARS = 128;
 
-    /**
-     * @var \App\Auth\Dispensary\Dispensary
-     */
     private Dispensary $dispensary;
 
     public function __construct(Dispensary $dispensary)

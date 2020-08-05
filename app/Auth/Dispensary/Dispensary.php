@@ -5,41 +5,39 @@ declare(strict_types=1);
 namespace App\Auth\Dispensary;
 
 use App\Auth\Dispensary\Exceptions\TokenExpiredException;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Str;
 
 final class Dispensary
 {
-    private Repository $cache;
+    private Repository $repository;
 
     private Hasher $hasher;
 
-    public function __construct(Repository $cache, Hasher $hasher)
+    public function __construct(Repository $repository, Hasher $hasher)
     {
-        $this->cache = $cache;
+        $this->repository = $repository;
         $this->hasher = $hasher;
     }
 
-    public function dispense(string $cacheKey, int $ttl, int $chars): string
+    public function dispense(string $key, int $ttl, int $chars): string
     {
         $token = $this->generateToken($chars);
 
-        $this->cache->put($cacheKey, $this->hasher->make($token), $ttl);
+        $this->repository->put($key, $this->hasher->make($token), $ttl);
 
         return $token;
     }
 
     /**
-     * @param  string $cacheKey
+     * @param  string $key
      * @param  string $token
      * @return bool
      * @throws \App\Auth\Dispensary\Exceptions\TokenExpiredException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function verify(string $cacheKey, string $token): bool
+    public function verify(string $key, string $token): bool
     {
-        $hashedToken = $this->cache->get($cacheKey);
+        $hashedToken = $this->repository->get($key);
 
         if (null === $hashedToken) {
             throw new TokenExpiredException();

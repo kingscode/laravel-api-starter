@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\Profile\Email;
 
+use App\Auth\Dispensary\Repository;
 use App\Auth\EmailDispensary;
 use App\Models\User;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use function factory;
@@ -63,10 +63,10 @@ final class VerifyTest extends TestCase
 
         $token = $this->dispensary->dispense($user, $email);
 
-        /** @var Repository $cache */
-        $cache = $this->app->make(Repository::class);
+        /** @var Repository $repository */
+        $repository = $this->app->make(Repository::class);
 
-        $cache->clear();
+        $repository->clear();
 
         $response = $this->actingAs($user, 'api')->json('post', 'profile/email/verify', [
             'email' => $email,

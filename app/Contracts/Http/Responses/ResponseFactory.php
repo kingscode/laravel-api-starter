@@ -10,19 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ResponseFactory
 {
-    /**
-     * @param  string $content
-     * @param  int    $status
-     * @param  array  $headers
-     * @return Response
-     */
     public function make(string $content = '', int $status = 200, array $headers = []): Response;
 
-    /**
-     * @param  int   $status
-     * @param  array $headers
-     * @return Response
-     */
     public function noContent(int $status = Response::HTTP_NO_CONTENT, array $headers = []): Response;
 
     /**
