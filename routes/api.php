@@ -14,7 +14,8 @@ $router->namespace('Api')->group(function (Router $router) {
         $router->post('dispense', 'Dispense');
     });
 
-    $router->namespace('Invitation')->prefix('invitation')->group(function (Router $router) {
+    $router->namespace('Invitation')->prefix('invitation')->middleware('throttle:5,15,spa_invitation_lock')->group(function (Router $router) {
+        $router->post('resend', 'Resend');
         $router->post('accept', 'Accept');
     });
 
