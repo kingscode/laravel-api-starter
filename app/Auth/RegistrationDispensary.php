@@ -25,13 +25,6 @@ final class RegistrationDispensary
         return $this->dispensary->dispense($this->getKey($user), self::TTL, self::CHARS);
     }
 
-    /**
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  string                                     $token
-     * @return bool
-     * @throws \App\Auth\Dispensary\Exceptions\TokenExpiredException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
     public function verify(Authenticatable $user, string $token): bool
     {
         return $this->dispensary->verify($this->getKey($user), $token);

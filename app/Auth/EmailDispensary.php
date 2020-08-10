@@ -25,14 +25,6 @@ final class EmailDispensary
         return $this->dispensary->dispense($this->getKey($user, $email), self::TTL, self::CHARS);
     }
 
-    /**
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  string                                     $email
-     * @param  string                                     $token
-     * @return bool
-     * @throws \App\Auth\Dispensary\Exceptions\TokenExpiredException
-     * @throws \Psr\SimpleCache\InvalidArgumentException
-     */
     public function verify(Authenticatable $user, string $email, string $token): bool
     {
         return $this->dispensary->verify($this->getKey($user, $email), $token);
