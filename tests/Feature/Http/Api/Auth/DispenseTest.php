@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\Auth;
 
+use App\Auth\Dispensary\Repository;
 use App\Auth\LoginDispensary;
 use App\Models\User;
 use App\SPA\UrlGenerator;
-use Illuminate\Contracts\Cache\Repository;
 use Tests\TestCase;
 use function bcrypt;
 use function factory;
@@ -90,10 +90,10 @@ final class DispenseTest extends TestCase
 
         $token = $this->dispensary->dispense($user);
 
-        /** @var Repository $cache */
-        $cache = $this->app->make(Repository::class);
+        /** @var \App\Auth\Dispensary\Repository $repository */
+        $repository = $this->app->make(Repository::class);
 
-        $cache->clear();
+        $repository->clear();
 
         $response = $this->json('post', 'auth/dispense', [
             'email' => $user->email,
