@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 final class Dispense extends Model
 {
     protected $fillable = [
-        'key', 'token', 'exipres_at',
+        'key', 'token', 'expires_at',
     ];
 
     protected $dates = [

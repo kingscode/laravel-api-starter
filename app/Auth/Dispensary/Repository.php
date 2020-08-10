@@ -25,7 +25,7 @@ final class Repository
             return null;
         }
 
-        if ($dispense->getExpiresAt()->greaterThan(Carbon::now())) {
+        if ($dispense->getExpiresAt()->lessThan(Carbon::now())) {
             $dispense->delete();
 
             return null;

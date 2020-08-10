@@ -14,7 +14,7 @@ final class CreateDispensesTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('token');
-            $table->timestamp('expires_at');
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }
