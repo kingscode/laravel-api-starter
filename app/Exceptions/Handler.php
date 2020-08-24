@@ -44,4 +44,9 @@ final class Handler extends ExceptionHandler
 
         parent::report($e);
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->container->make(ResponseFactory::class)->json(['message' => $exception->getMessage()], 401);
+    }
 }

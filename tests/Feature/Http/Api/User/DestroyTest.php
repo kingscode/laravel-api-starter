@@ -24,4 +24,17 @@ final class DestroyTest extends TestCase
             'id' => $user2->getKey(),
         ]);
     }
+
+    public function testCantDeleteYourself()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->actingAs($user, 'api')->json('delete', 'user/' . $user->getKey());
+
+        $response->assertStatus(Response::HTTP_CONFLICT);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->getKey(),
+        ]);
+    }
 }

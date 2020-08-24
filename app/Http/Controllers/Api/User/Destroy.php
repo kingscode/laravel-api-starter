@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\User;
 
 use App\Models\User;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
@@ -17,10 +18,17 @@ final class Destroy
         $this->responseFactory = $responseFactory;
     }
 
-    public function __invoke(User $user): Response
+    public function __invoke(Guard $guard, User $user): Response
     {
-        return $this->responseFactory->noContent(
-            $user->delete() ? Response::HTTP_OK : Response::HTTP_CONFLICT
-        );
+        /** @var User $authenticatedUser */
+        $authenticatedUser = $guard->user();
+
+        if ($user->is($authenticatedUser)) {
+            return $this->responseFactory->noContent(Response::HTTP_CONFLICT);
+        }
+
+        $user->delete();
+
+        return $this->responseFactory->noContent(Response::HTTP_OK);
     }
 }
