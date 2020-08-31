@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use App\Http\Header;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -45,8 +46,10 @@ final class Handler extends ExceptionHandler
         parent::report($e);
     }
 
-    protected function unauthenticated($request, AuthenticationException $exception)
+    public function render($request, Throwable $e)
     {
-        return $this->container->make(ResponseFactory::class)->json(['message' => $exception->getMessage()], 401);
+        $request->headers->set(Header::ACCEPT, 'application/json');
+
+        return parent::render($request, $e);
     }
 }
