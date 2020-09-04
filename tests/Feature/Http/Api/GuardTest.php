@@ -6,6 +6,7 @@ namespace Tests\Feature\Http\Api;
 
 use App\Http\Header;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
@@ -35,12 +36,20 @@ final class GuardTest extends TestCase
     public function testCorrectToken()
     {
         $user = factory(User::class)->create();
-        $user->tokens()->create(['token' => 'yayeet']);
+        $userToken = $user->tokens()->create(['token' => 'yayeet']);
+
+        $now = $userToken->created_at->copy()->addDays(7);
+
+        Carbon::setTestNow($now);
 
         $response = $this->json('get', 'test', [], [
             Header::AUTHORIZATION => 'Bearer yayeet',
         ]);
 
         $response->assertStatus(Response::HTTP_OK);
+
+        $this->assertDatabaseHas('user_tokens', [
+            'updated_at' => $now,
+        ]);
     }
 }

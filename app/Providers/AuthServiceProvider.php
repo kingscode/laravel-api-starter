@@ -55,6 +55,8 @@ final class AuthServiceProvider extends ServiceProvider
 
             $user->setCurrentToken($userToken);
 
+            $userToken->touch();
+
             return $user;
         });
     }
