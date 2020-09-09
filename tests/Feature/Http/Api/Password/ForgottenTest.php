@@ -17,7 +17,7 @@ final class ForgottenTest extends TestCase
     {
         $this->app->instance(Dispatcher::class, $fake = new NotificationFake());
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email' => 'info@kingscode.nl',
         ]);
 

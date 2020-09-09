@@ -16,7 +16,7 @@ final class VerifyUpdateTest extends TestCase
     {
         $notification = new VerifyUpdate('token');
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
     }

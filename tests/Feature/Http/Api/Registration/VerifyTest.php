@@ -9,7 +9,6 @@ use App\Auth\RegistrationDispensary;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 /**
  * @property \App\Auth\RegistrationDispensary dispensary
@@ -27,7 +26,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email' => $email,
         ]);
 
@@ -45,7 +44,7 @@ final class VerifyTest extends TestCase
 
     public function testBadRequestWhenWrongEmail()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email' => 'wrong@kingscode.nl',
         ]);
 
@@ -65,7 +64,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email' => $email,
         ]);
 
@@ -85,7 +84,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email' => $email,
         ]);
 

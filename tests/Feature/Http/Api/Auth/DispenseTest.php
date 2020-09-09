@@ -10,7 +10,6 @@ use App\Models\User;
 use App\SPA\UrlGenerator;
 use Tests\TestCase;
 use function bcrypt;
-use function factory;
 use function parse_url;
 use const PHP_URL_FRAGMENT;
 
@@ -30,7 +29,7 @@ final class DispenseTest extends TestCase
 
     public function test()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -52,7 +51,7 @@ final class DispenseTest extends TestCase
 
     public function testWithRedirectUri()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -84,7 +83,7 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenTokenExpired()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -107,7 +106,7 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenTokenWrong()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -125,7 +124,7 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenEmailDoesntExists()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email'    => 'yoink@dadoink.nl',
             'password' => bcrypt('kingscodedotnl'),
         ]);

@@ -35,7 +35,7 @@ final class GuardTest extends TestCase
 
     public function testCorrectToken()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
         $userToken = $user->tokens()->create(['token' => 'yayeet']);
 
         $now = $userToken->created_at->copy()->addDays(7);

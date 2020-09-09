@@ -6,38 +6,36 @@ namespace App\Providers;
 
 use App\Contracts\Http\Responses\ResponseFactory as ResponseFactoryContract;
 use App\Http\Responses\ResponseFactory;
+use Illuminate\Cache\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
 
 final class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'App\Http\Controllers';
+    protected $namespace = '\\App\\Http\\Controllers\\';
 
     /**
-     * Define the routes for the application.
-     *
-     * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function map(): void
+    public function boot()
     {
-        $router = $this->app->make(Router::class);
+        $this->configureRateLimiting();
 
-        $this->mapApiRoutes($router);
+        $this->routes(function () {
+            $router = $this->app->make(Router::class);
 
-        $this->mapWebRoutes($router);
+            $this->mapApiRoutes($router);
+
+            $this->mapWebRoutes($router);
+        });
     }
 
     public function register()
     {
+        parent::register();
+
         $this->app->singleton(ResponseFactoryContract::class, static function (Container $container) {
             return $container->make(ResponseFactory::class);
         });
@@ -51,11 +49,9 @@ final class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router $router
      * @return void
      */
-    protected function mapWebRoutes(Router $router): void
+    private function mapWebRoutes(Router $router): void
     {
-        $router->middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+        $router->middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
     }
 
     /**
@@ -66,10 +62,32 @@ final class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router $router
      * @return void
      */
-    protected function mapApiRoutes(Router $router): void
+    private function mapApiRoutes(Router $router): void
     {
-        $router->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+        $router->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     *
+     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    private function configureRateLimiting()
+    {
+        /** @var RateLimiter $rateLimiter */
+        $rateLimiter = $this->app->make(RateLimiter::class);
+
+        $rateLimiter->for('spa_login_lock', function () {
+            return new Limit('spa_login_lock', 15, 5);
+        });
+
+        $rateLimiter->for('spa_invitation_lock', function () {
+            return new Limit('spa_invitation_lock', 15, 5);
+        });
+
+        $rateLimiter->for('spa_password_reset_lock', function () {
+            return new Limit('spa_password_reset_lock', 15, 5);
+        });
     }
 }

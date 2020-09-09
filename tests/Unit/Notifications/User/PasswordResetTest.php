@@ -15,7 +15,7 @@ final class PasswordResetTest extends TestCase
     {
         $notification = new PasswordReset('token');
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
     }

@@ -8,13 +8,12 @@ use App\Models\User;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 use function bcrypt;
-use function factory;
 
 final class LoginTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -46,7 +45,7 @@ final class LoginTest extends TestCase
 
     public function testWrongPassword()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 

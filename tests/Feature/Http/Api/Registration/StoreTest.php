@@ -44,7 +44,7 @@ final class StoreTest extends TestCase
 
     public function testEmailAlreadyExists()
     {
-        factory(User::class)->create([
+        User::factory()->createOne([
             'email' => 'info@kingscode.nl',
         ]);
 

@@ -7,13 +7,12 @@ namespace Tests\Feature\Http\Api\User;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 final class IndexTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('get', 'user');
 
@@ -38,10 +37,10 @@ final class IndexTest extends TestCase
 
     public function testSearchingForName()
     {
-        $user1 = factory(User::class)->create([
+        $user1 = User::factory()->createOne([
             'name' => 'aaa',
         ]);
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->createOne([
             'name' => 'bbb',
         ]);
 
@@ -54,10 +53,10 @@ final class IndexTest extends TestCase
 
     public function testSearchingForEmail()
     {
-        $user1 = factory(User::class)->create([
+        $user1 = User::factory()->createOne([
             'email' => 'info@kingscode.nl',
         ]);
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->createOne([
             'email' => 'support@kingscode.nl',
         ]);
 
@@ -70,10 +69,10 @@ final class IndexTest extends TestCase
 
     public function testSortingByNameAsc()
     {
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->createOne([
             'name' => 'bbb',
         ]);
-        $user1 = factory(User::class)->create([
+        $user1 = User::factory()->createOne([
             'name' => 'aaa',
         ]);
 
@@ -86,10 +85,10 @@ final class IndexTest extends TestCase
 
     public function testSortingByNameDesc()
     {
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->createOne([
             'name' => 'bbb',
         ]);
-        $user1 = factory(User::class)->create([
+        $user1 = User::factory()->createOne([
             'name' => 'aaa',
         ]);
 
@@ -102,10 +101,10 @@ final class IndexTest extends TestCase
 
     public function testSortingByEmailAsc()
     {
-        $user1 = factory(User::class)->create([
+        $user1 = User::factory()->createOne([
             'email' => 'a@kingscode.nl',
         ]);
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->createOne([
             'email' => 'b@kingscode.nl',
         ]);
 
@@ -118,10 +117,10 @@ final class IndexTest extends TestCase
 
     public function testSortingByEmailDesc()
     {
-        $user1 = factory(User::class)->create([
+        $user1 = User::factory()->createOne([
             'email' => 'a@kingscode.nl',
         ]);
-        $user2 = factory(User::class)->create([
+        $user2 = User::factory()->createOne([
             'email' => 'b@kingscode.nl',
         ]);
 

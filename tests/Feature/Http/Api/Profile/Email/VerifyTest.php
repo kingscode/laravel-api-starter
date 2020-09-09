@@ -9,7 +9,6 @@ use App\Auth\EmailDispensary;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 /**
  * @property EmailDispensary dispensary
@@ -27,7 +26,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $token = $this->dispensary->dispense($user, $email);
 
@@ -43,7 +42,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $this->dispensary->dispense($user, $email);
 
@@ -59,7 +58,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $token = $this->dispensary->dispense($user, $email);
 
@@ -78,7 +77,7 @@ final class VerifyTest extends TestCase
 
     public function testValidationErrors()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('post', 'profile/email/verify');
 

@@ -6,13 +6,12 @@ namespace Tests\Feature\Models;
 
 use App\Models\User;
 use Tests\TestCase;
-use function factory;
 
 final class UserTest extends TestCase
 {
     public function testUserTokensGetDeleted()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
         $token = $user->tokens()->create(['token' => 'yayeet']);
 
         $user->delete();

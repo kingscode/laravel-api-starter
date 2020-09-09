@@ -12,7 +12,7 @@ final class ShowTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('get', 'profile');
 

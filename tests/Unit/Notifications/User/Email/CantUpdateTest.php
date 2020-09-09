@@ -16,7 +16,7 @@ final class CantUpdateTest extends TestCase
     {
         $notification = new CantUpdate();
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
     }

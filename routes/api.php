@@ -9,17 +9,17 @@ use Illuminate\Routing\Router;
 // @formatter:off
 
 $router->namespace('Api')->group(function (Router $router) {
-    $router->namespace('Auth')->prefix('auth')->middleware('throttle:5,15,spa_login_lock')->group(function (Router $router) {
+    $router->namespace('Auth')->prefix('auth')->middleware('throttle:spa_login_lock')->group(function (Router $router) {
         $router->post('login', 'Login');
         $router->post('dispense', 'Dispense');
     });
 
-    $router->namespace('Invitation')->prefix('invitation')->middleware('throttle:5,15,spa_invitation_lock')->group(function (Router $router) {
+    $router->namespace('Invitation')->prefix('invitation')->middleware('throttle:spa_invitation_lock')->group(function (Router $router) {
         $router->post('resend', 'Resend');
         $router->post('accept', 'Accept');
     });
 
-    $router->namespace('Password')->prefix('password')->middleware('throttle:5,15,spa_password_reset_lock')->group(function (Router $router) {
+    $router->namespace('Password')->prefix('password')->middleware('throttle:spa_password_reset_lock')->group(function (Router $router) {
         $router->post('reset', 'Reset');
         $router->post('forgotten', 'Forgotten');
     });

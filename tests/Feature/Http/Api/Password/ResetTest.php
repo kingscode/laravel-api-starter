@@ -8,13 +8,12 @@ use App\Models\User;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 final class ResetTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $token = $this->app->make(PasswordBrokerManager::class)->broker('users')->createToken($user);
 
@@ -30,7 +29,7 @@ final class ResetTest extends TestCase
 
     public function testWithNonExistentToken()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $response = $this->json('post', 'password/reset', [
             'email'                 => $user->email,

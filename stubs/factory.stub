@@ -2,13 +2,20 @@
 
 declare(strict_types=1);
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use {{ namespacedModel }};
 
-$factory->define({{ model }}::class, function (Faker $faker) {
-    return [
-        //
-    ];
-});
+final class {{ model }}Factory extends Factory
+{
+    protected $model = {{ model }}::class;
+
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}

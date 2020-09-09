@@ -10,7 +10,6 @@ use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use Tests\TestCase;
-use function factory;
 
 final class ResendTest extends TestCase
 {
@@ -20,7 +19,7 @@ final class ResendTest extends TestCase
 
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = User::factory()->createOne([
             'email' => $email,
         ]);
 

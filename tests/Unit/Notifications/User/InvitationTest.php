@@ -16,7 +16,7 @@ final class InvitationTest extends TestCase
     {
         $notification = new Invitation('token');
 
-        $user = factory(User::class)->create();
+        $user = User::factory()->createOne();
 
         $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
     }
