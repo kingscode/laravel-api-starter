@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\User;
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -12,7 +12,7 @@ final class StoreTest extends TestCase
 {
     public function test()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('post', 'user', [
             'name'  => 'Kings Code',
@@ -29,7 +29,7 @@ final class StoreTest extends TestCase
 
     public function testValidationErrors()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('post', 'user');
 

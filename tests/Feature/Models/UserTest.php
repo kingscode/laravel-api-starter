@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Models;
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Tests\TestCase;
 
 final class UserTest extends TestCase
 {
     public function testUserTokensGetDeleted()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
         $token = $user->tokens()->create(['token' => 'yayeet']);
 
         $user->delete();

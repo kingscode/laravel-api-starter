@@ -6,7 +6,7 @@ namespace Tests\Feature\Http\Api\Registration;
 
 use App\Mail\Registration\AlreadyExists;
 use App\Mail\Registration\Verify;
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\MailFake;
@@ -44,7 +44,7 @@ final class StoreTest extends TestCase
 
     public function testEmailAlreadyExists()
     {
-        User::factory()->createOne([
+        UserFactory::new()->createOne([
             'email' => 'info@kingscode.nl',
         ]);
 

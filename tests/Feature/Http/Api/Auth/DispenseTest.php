@@ -6,8 +6,8 @@ namespace Tests\Feature\Http\Api\Auth;
 
 use App\Auth\Dispensary\Repository;
 use App\Auth\LoginDispensary;
-use App\Models\User;
 use App\SPA\UrlGenerator;
+use Database\Factories\UserFactory;
 use Tests\TestCase;
 use function bcrypt;
 use function parse_url;
@@ -29,7 +29,7 @@ final class DispenseTest extends TestCase
 
     public function test()
     {
-        $user = User::factory()->createOne([
+        $user = UserFactory::new()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -51,7 +51,7 @@ final class DispenseTest extends TestCase
 
     public function testWithRedirectUri()
     {
-        $user = User::factory()->createOne([
+        $user = UserFactory::new()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -83,7 +83,7 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenTokenExpired()
     {
-        $user = User::factory()->createOne([
+        $user = UserFactory::new()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -106,7 +106,7 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenTokenWrong()
     {
-        $user = User::factory()->createOne([
+        $user = UserFactory::new()->createOne([
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
@@ -124,7 +124,7 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenEmailDoesntExists()
     {
-        $user = User::factory()->createOne([
+        $user = UserFactory::new()->createOne([
             'email'    => 'yoink@dadoink.nl',
             'password' => bcrypt('kingscodedotnl'),
         ]);

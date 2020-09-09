@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Api;
 
 use App\Http\Header;
-use App\Models\User;
 use Carbon\Carbon;
+use Database\Factories\UserFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
@@ -35,7 +35,7 @@ final class GuardTest extends TestCase
 
     public function testCorrectToken()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
         $userToken = $user->tokens()->create(['token' => 'yayeet']);
 
         $now = $userToken->created_at->copy()->addDays(7);

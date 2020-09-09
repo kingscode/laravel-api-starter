@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\Invitation;
 
-use App\Models\User;
 use App\Notifications\User\Invitation;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
@@ -19,7 +19,7 @@ final class ResendTest extends TestCase
 
         $email = 'info@kingscode.nl';
 
-        $user = User::factory()->createOne([
+        $user = UserFactory::new()->createOne([
             'email' => $email,
         ]);
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Api\Profile\Password;
 
 use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -13,7 +14,7 @@ final class UpdateTest extends TestCase
     public function test()
     {
         /** @var User $user */
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('put', 'profile/password', [
             'password'              => 'kingscodedotnl',
@@ -26,7 +27,7 @@ final class UpdateTest extends TestCase
 
     public function testCurrentPasswordIncorrect()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('put', 'profile/password', [
             'password'              => 'kingscodedotnl',
@@ -41,7 +42,7 @@ final class UpdateTest extends TestCase
 
     public function testValidationErrors()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('put', 'profile/password');
 

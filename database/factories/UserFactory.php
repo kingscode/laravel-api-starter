@@ -21,4 +21,9 @@ final class UserFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
+
+    public function configure()
+    {
+        return parent::configure();
+    }
 }

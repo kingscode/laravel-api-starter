@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\User;
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -12,8 +12,8 @@ final class DestroyTest extends TestCase
 {
     public function test()
     {
-        $user1 = User::factory()->createOne();
-        $user2 = User::factory()->createOne();
+        $user1 = UserFactory::new()->createOne();
+        $user2 = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user1, 'api')->json('delete', 'user/' . $user2->getKey());
 
@@ -26,7 +26,7 @@ final class DestroyTest extends TestCase
 
     public function testCantDeleteYourself()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('delete', 'user/' . $user->getKey());
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\Password;
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -13,7 +13,7 @@ final class ResetTest extends TestCase
 {
     public function test()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $token = $this->app->make(PasswordBrokerManager::class)->broker('users')->createToken($user);
 
@@ -29,7 +29,7 @@ final class ResetTest extends TestCase
 
     public function testWithNonExistentToken()
     {
-        $user = User::factory()->createOne();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->json('post', 'password/reset', [
             'email'                 => $user->email,
