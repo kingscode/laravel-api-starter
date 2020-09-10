@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Notifications\User\Email;
 
-use App\Models\User;
 use App\Notifications\User\Email\CantUpdate;
+use Database\Factories\UserFactory;
 use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
 use function in_array;
@@ -16,7 +16,7 @@ final class CantUpdateTest extends TestCase
     {
         $notification = new CantUpdate();
 
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->createOne();
 
         $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
     }

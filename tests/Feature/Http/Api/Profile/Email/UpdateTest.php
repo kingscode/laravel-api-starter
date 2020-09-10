@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\Profile\Email;
 
-use App\Models\User;
 use App\Notifications\User\Email\CantUpdate;
 use App\Notifications\User\Email\VerifyUpdate;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Notifications\Dispatcher;
 use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use Tests\TestCase;
-use function factory;
 
 final class UpdateTest extends TestCase
 {
@@ -21,7 +20,7 @@ final class UpdateTest extends TestCase
 
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => $email,
         ]);
 
@@ -40,11 +39,11 @@ final class UpdateTest extends TestCase
 
         $email = 'info@kingscode.nl';
 
-        factory(User::class)->create([
+        UserFactory::new()->createOne([
             'email' => $email,
         ]);
 
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => 'yoink@dadoink.nl',
         ]);
 
@@ -59,7 +58,7 @@ final class UpdateTest extends TestCase
 
     public function testValidationErrors()
     {
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('put', 'profile/email');
 

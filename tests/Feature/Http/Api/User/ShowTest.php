@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\User;
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 final class ShowTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('get', 'user/' . $user->getKey());
 

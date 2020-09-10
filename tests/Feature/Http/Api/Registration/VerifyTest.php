@@ -6,10 +6,9 @@ namespace Tests\Feature\Http\Api\Registration;
 
 use App\Auth\Dispensary\Repository;
 use App\Auth\RegistrationDispensary;
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 /**
  * @property \App\Auth\RegistrationDispensary dispensary
@@ -27,7 +26,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => $email,
         ]);
 
@@ -45,7 +44,7 @@ final class VerifyTest extends TestCase
 
     public function testBadRequestWhenWrongEmail()
     {
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => 'wrong@kingscode.nl',
         ]);
 
@@ -65,7 +64,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => $email,
         ]);
 
@@ -85,7 +84,7 @@ final class VerifyTest extends TestCase
     {
         $email = 'info@kingscode.nl';
 
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => $email,
         ]);
 

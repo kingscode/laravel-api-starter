@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Http\Api\Profile;
 
-use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use function factory;
 
 final class UpdateTest extends TestCase
 {
     public function test()
     {
-        $user = factory(User::class)->create([
+        $user = UserFactory::new()->createOne([
             'email' => 'info@kingscode.nl',
         ]);
 
@@ -30,7 +29,7 @@ final class UpdateTest extends TestCase
 
     public function testValidationErrors()
     {
-        $user = factory(User::class)->create();
+        $user = UserFactory::new()->createOne();
 
         $response = $this->actingAs($user, 'api')->json('put', 'profile');
 
