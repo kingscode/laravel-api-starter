@@ -18,4 +18,13 @@ final class {{ model }}Factory extends Factory
             //
         ];
     }
+
+    /**
+     * @param  array $attributes
+     * @return \Illuminate\Database\Eloquent\Model|{{ namespacedModel }}
+     */
+    public function createOne($attributes = [])
+    {
+        return parent::createOne($attributes);
+    }
 }

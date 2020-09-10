@@ -22,8 +22,12 @@ final class UserFactory extends Factory
         ];
     }
 
-    public function configure()
+    /**
+     * @param  array $attributes
+     * @return \Illuminate\Database\Eloquent\Model|\App\Models\User
+     */
+    public function createOne($attributes = [])
     {
-        return parent::configure();
+        return parent::createOne($attributes);
     }
 }
