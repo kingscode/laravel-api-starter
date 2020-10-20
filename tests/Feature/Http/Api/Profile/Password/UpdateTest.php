@@ -22,7 +22,7 @@ final class UpdateTest extends TestCase
             'current_password'      => 'secret',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
     }
 
     public function testCurrentPasswordIncorrect()

@@ -7,7 +7,6 @@ namespace Tests\Feature\Http\Api\Invitation;
 use App\Notifications\User\Invitation;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Notifications\Dispatcher;
-use Illuminate\Http\Response;
 use Illuminate\Support\Testing\Fakes\NotificationFake;
 use Tests\TestCase;
 
@@ -27,7 +26,7 @@ final class ResendTest extends TestCase
             'email' => $email,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $fake->assertSentTo($user, Invitation::class);
     }
@@ -42,7 +41,7 @@ final class ResendTest extends TestCase
             'email' => $email,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $fake->assertNothingSent();
     }

@@ -28,7 +28,7 @@ final class UpdateTest extends TestCase
             'email' => $email,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $fake->assertSentTo($user, VerifyUpdate::class);
     }
@@ -51,7 +51,7 @@ final class UpdateTest extends TestCase
             'email' => $email,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $fake->assertSentTo($user, CantUpdate::class);
     }

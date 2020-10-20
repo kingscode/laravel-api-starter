@@ -15,9 +15,9 @@ final class DestroyTest extends TestCase
         $user1 = UserFactory::new()->createOne();
         $user2 = UserFactory::new()->createOne();
 
-        $response = $this->actingAs($user1, 'api')->json('delete', 'user/' . $user2->getKey());
+        $response = $this->actingAs($user1, 'api')->json('delete', "user/{$user2->getKey()}");
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertDatabaseMissing('users', [
             'id' => $user2->getKey(),
@@ -28,7 +28,7 @@ final class DestroyTest extends TestCase
     {
         $user = UserFactory::new()->createOne();
 
-        $response = $this->actingAs($user, 'api')->json('delete', 'user/' . $user->getKey());
+        $response = $this->actingAs($user, 'api')->json('delete', "user/{$user->getKey()}");
 
         $response->assertStatus(Response::HTTP_CONFLICT);
 

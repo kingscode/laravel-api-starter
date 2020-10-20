@@ -15,7 +15,7 @@ final class UpdateRequest extends FormRequest
 
         return [
             'name'  => ['required', 'string'],
-            'email' => ['required', 'string', 'email', Rule::unique('users', 'email')->ignore($user)],
+            'email' => ['required', 'string', 'email:rfc,dns', Rule::unique('users', 'email')->ignore($user)],
         ];
     }
 }

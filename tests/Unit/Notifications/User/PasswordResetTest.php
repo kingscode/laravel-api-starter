@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Notifications\User;
 
+use App\Mail\User\PasswordReset as PasswordResetMail;
 use App\Notifications\User\PasswordReset;
 use Database\Factories\UserFactory;
-use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
 
 final class PasswordResetTest extends TestCase
@@ -17,7 +17,7 @@ final class PasswordResetTest extends TestCase
 
         $user = UserFactory::new()->createOne();
 
-        $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
+        $this->assertInstanceOf(PasswordResetMail::class, $notification->toMail($user));
     }
 
     public function testViaReturnsMailChannel()

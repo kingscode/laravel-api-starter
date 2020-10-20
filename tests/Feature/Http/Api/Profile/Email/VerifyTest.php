@@ -35,7 +35,7 @@ final class VerifyTest extends TestCase
             'token' => $token,
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
     }
 
     public function testBadRequestWhenWrongTokenPassed()

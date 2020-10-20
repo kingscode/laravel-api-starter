@@ -13,7 +13,7 @@ final class StoreRequest extends FormRequest
     {
         return [
             'name'  => ['required', 'string'],
-            'email' => ['required', 'string', 'email', Rule::unique('users', 'email')],
+            'email' => ['required', 'string', 'email:rfc,dns', Rule::unique('users', 'email')],
         ];
     }
 }

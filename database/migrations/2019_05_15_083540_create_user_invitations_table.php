@@ -10,7 +10,7 @@ class CreateUserInvitationsTable extends Migration
 {
     public function up(): void
     {
-        Schema::create('user_invitations', function (Blueprint $table) {
+        Schema::create('user_invitations', static function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token');
             $table->timestamp('created_at')->nullable();

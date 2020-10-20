@@ -25,7 +25,7 @@ final class ForgottenTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $fake->assertSentTo($user, PasswordReset::class);
     }
@@ -36,7 +36,7 @@ final class ForgottenTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
     }
 
     public function testValidationErrors()

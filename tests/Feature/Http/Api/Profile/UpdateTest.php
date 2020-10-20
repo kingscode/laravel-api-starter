@@ -20,7 +20,7 @@ final class UpdateTest extends TestCase
             'name' => 'King',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertDatabaseHas('users', [
             'name' => 'King',

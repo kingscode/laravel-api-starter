@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Notifications\User;
 
+use App\Mail\User\Invitation as InvitationMail;
 use App\Notifications\User\Invitation;
 use Database\Factories\UserFactory;
-use Illuminate\Notifications\Messages\MailMessage;
 use Tests\TestCase;
 use function in_array;
 
@@ -18,7 +18,7 @@ final class InvitationTest extends TestCase
 
         $user = UserFactory::new()->createOne();
 
-        $this->assertInstanceOf(MailMessage::class, $notification->toMail($user));
+        $this->assertInstanceOf(InvitationMail::class, $notification->toMail($user));
     }
 
     public function testViaReturnsMailChannel()

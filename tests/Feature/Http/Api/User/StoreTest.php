@@ -19,7 +19,7 @@ final class StoreTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(201);
+        $response->assertCreated();
 
         $this->assertDatabaseHas('users', [
             'name'  => 'Kings Code',

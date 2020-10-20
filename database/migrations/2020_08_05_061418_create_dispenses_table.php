@@ -10,7 +10,7 @@ final class CreateDispensesTable extends Migration
 {
     public function up(): void
     {
-        Schema::create('dispenses', function (Blueprint $table) {
+        Schema::create('dispenses', static function (Blueprint $table) {
             $table->id();
             $table->string('key');
             $table->string('token');

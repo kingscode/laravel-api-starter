@@ -12,7 +12,7 @@ final class ResetRequest extends FormRequest
     {
         return [
             'token'    => ['required', 'string'],
-            'email'    => ['required', 'string', 'email'],
+            'email'    => ['required', 'string', 'email:rfc,dns',],
             'password' => ['required', 'string', 'min:10', 'confirmed'],
         ];
     }

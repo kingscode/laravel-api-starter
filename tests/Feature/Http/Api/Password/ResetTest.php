@@ -24,7 +24,7 @@ final class ResetTest extends TestCase
             'password_confirmation' => 'kingscodedotnl',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);;
+        $response->assertOk();;
     }
 
     public function testWithNonExistentToken()

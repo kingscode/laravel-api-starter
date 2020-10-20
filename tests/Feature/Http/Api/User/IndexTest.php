@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Api\User;
 
 use Database\Factories\UserFactory;
-use Illuminate\Http\Response;
 use Tests\TestCase;
 
 final class IndexTest extends TestCase
@@ -16,7 +15,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user, 'api')->json('get', 'user');
 
-        $response->assertStatus(Response::HTTP_OK)->assertExactJson([
+        $response->assertOk()->assertExactJson([
             'data' => [
                 [
                     'id'    => $user->getKey(),
@@ -46,7 +45,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user1, 'api')->json('get', 'user?name=bbb');
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }
@@ -62,7 +61,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user1, 'api')->json('get', 'user?email=support');
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }
@@ -78,7 +77,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user1, 'api')->json('get', 'user?sort_by=name&desc=0');
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertSame($user1->getKey(), $response->json('data.0.id'));
     }
@@ -94,7 +93,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user1, 'api')->json('get', 'user?sort_by=name&desc=1');
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }
@@ -110,7 +109,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user1, 'api')->json('get', 'user?sort_by=email&desc=0');
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertSame($user1->getKey(), $response->json('data.0.id'));
     }
@@ -126,7 +125,7 @@ final class IndexTest extends TestCase
 
         $response = $this->actingAs($user1, 'api')->json('get', 'user?sort_by=email&desc=1');
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertSame($user2->getKey(), $response->json('data.0.id'));
     }

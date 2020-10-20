@@ -46,7 +46,7 @@ final class Update
             $token = $this->dispensary->dispense($user, $request->input('email'));
 
             $this->notificationDispatcher->send($user,
-                new VerifyUpdate($token)
+                new VerifyUpdate($token, $request->input('email'))
             );
 
             return $this->responseFactory->noContent(Response::HTTP_OK);

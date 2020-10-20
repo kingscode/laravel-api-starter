@@ -19,7 +19,7 @@ final class UpdateTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertOk();
 
         $this->assertDatabaseHas('users', [
             'id'    => $user->getKey(),

@@ -46,7 +46,7 @@ final class GuardTest extends TestCase
             Header::AUTHORIZATION => 'Bearer yayeet',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->assertDatabaseHas('user_tokens', [
             'updated_at' => $now,

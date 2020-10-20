@@ -39,7 +39,7 @@ final class VerifyTest extends TestCase
             'password_confirmation' => 'secretatleast10charpassword',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
     }
 
     public function testBadRequestWhenWrongEmail()

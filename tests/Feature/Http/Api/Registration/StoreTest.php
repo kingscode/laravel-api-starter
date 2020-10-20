@@ -30,7 +30,7 @@ final class StoreTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->mailer->assertQueued(Verify::class, function (Verify $verify) {
             return $verify->hasTo('info@kingscode.nl');
@@ -53,7 +53,7 @@ final class StoreTest extends TestCase
             'email' => 'info@kingscode.nl',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $this->mailer->assertQueued(AlreadyExists::class, function (AlreadyExists $verify) {
             return $verify->hasTo('info@kingscode.nl');

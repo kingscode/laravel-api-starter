@@ -22,7 +22,7 @@ final class LoginTest extends TestCase
             'password' => 'kingscodedotnl',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
 
         $response->assertJsonStructure([
             'data' => [

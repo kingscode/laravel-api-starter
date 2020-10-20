@@ -6,7 +6,6 @@ namespace Tests\Feature\Http\Api\Auth;
 
 use App\Http\Header;
 use Database\Factories\UserFactory;
-use Illuminate\Http\Response;
 use Tests\TestCase;
 use function bcrypt;
 
@@ -23,6 +22,6 @@ final class LogoutTest extends TestCase
             Header::AUTHORIZATION => 'Bearer yayeet',
         ]);
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertOk();
     }
 }
