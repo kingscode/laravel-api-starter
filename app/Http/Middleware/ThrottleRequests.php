@@ -20,14 +20,10 @@ final class ThrottleRequests
         $this->config = $config;
     }
 
-    public function handle($request, Closure $next, $maxAttemptsOrLimiter = 60, $decayMinutes = 1, $prefix = '')
+    public function handle($request, Closure $next, string $limiter)
     {
         if ($this->isEnabled()) {
-            if (is_string($maxAttemptsOrLimiter)) {
-                return $this->throttleRequests->handle($request, $next, $maxAttemptsOrLimiter);
-            }
-
-            return $this->throttleRequests->handle($request, $next, $maxAttemptsOrLimiter, $decayMinutes, $prefix);
+            return $this->throttleRequests->handle($request, $next, $limiter);
         }
 
         return $next($request);

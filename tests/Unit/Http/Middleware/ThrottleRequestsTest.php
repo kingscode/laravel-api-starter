@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Http\Middleware;
 
+use Illuminate\Cache\RateLimiter;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
 use Tests\TestCase;
@@ -15,10 +18,17 @@ final class ThrottleRequestsTest extends TestCase
     {
         parent::setUp();
 
+        /** @var RateLimiter $rateLimiter */
+        $rateLimiter = $this->app->make(RateLimiter::class);
+
+        $rateLimiter->for('test', function (Request $request) {
+            return new Limit($request->ip(), 1, 1);
+        });
+
         /** @var Router $router */
         $router = $this->app->make(Router::class);
 
-        $router->middleware('throttle:1,1')->get('test', function () {
+        $router->middleware('throttle:test')->get('test', function () {
             return new Response('', 200);
         });
     }
