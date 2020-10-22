@@ -10,7 +10,10 @@ use Illuminate\Cache\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use RuntimeException;
+use function sha1;
 
 final class RouteServiceProvider extends ServiceProvider
 {
@@ -78,16 +81,27 @@ final class RouteServiceProvider extends ServiceProvider
         /** @var RateLimiter $rateLimiter */
         $rateLimiter = $this->app->make(RateLimiter::class);
 
-        $rateLimiter->for('spa_login_lock', function () {
-            return new Limit('spa_login_lock', 15, 5);
+        $rateLimiter->for('spa_login_lock', function (Request $request) {
+            return new Limit($this->resolveRequestSignature($request), 15, 5);
         });
 
-        $rateLimiter->for('spa_invitation_lock', function () {
-            return new Limit('spa_invitation_lock', 15, 5);
+        $rateLimiter->for('spa_invitation_lock', function (Request $request) {
+            return new Limit($this->resolveRequestSignature($request), 15, 5);
         });
 
-        $rateLimiter->for('spa_password_reset_lock', function () {
-            return new Limit('spa_password_reset_lock', 15, 5);
+        $rateLimiter->for('spa_password_reset_lock', function (Request $request) {
+            return new Limit($this->resolveRequestSignature($request), 15, 5);
         });
+    }
+
+    private function resolveRequestSignature(Request $request)
+    {
+        if ($user = $request->user()) {
+            return sha1($user->getAuthIdentifier());
+        } elseif ($route = $request->route()) {
+            return sha1($route->getDomain() . '|' . $request->ip());
+        }
+
+        throw new RuntimeException('Unable to generate the request signature. Route unavailable.');
     }
 }
