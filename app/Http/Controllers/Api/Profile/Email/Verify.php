@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Api\Profile\Email;
 
 use App\Auth\Dispensary\Exceptions\TokenExpiredException;
 use App\Auth\EmailDispensary;
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Profile\Email\VerifyRequest;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
 final class Verify

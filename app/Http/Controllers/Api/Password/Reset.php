@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Password;
 
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Password\ResetRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -11,7 +12,6 @@ use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

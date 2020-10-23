@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Auth\LoginDispensary;
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
 final class Destroy

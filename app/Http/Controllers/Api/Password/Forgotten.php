@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Password;
 
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Password\ForgottenRequest;
 use App\Models\User;
 use App\Notifications\User\PasswordReset;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Notifications\Dispatcher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\JsonResponse;
 

@@ -6,30 +6,32 @@ namespace App\Http\Responses;
 
 use App\Contracts\Http\Responses\ResponseFactory as ResponseFactoryContract;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Routing\Redirector;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use function array_key_exists;
 
 final class ResponseFactory implements ResponseFactoryContract
 {
-    /**
-     * @inheritDoc
-     */
+    private Redirector $redirector;
+
+    public function __construct(Redirector $redirector)
+    {
+        $this->redirector = $redirector;
+    }
+
     public function make(string $content = '', int $status = Response::HTTP_OK, array $headers = []): Response
     {
         return new Response($content, $status, $headers);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function noContent(int $status = Response::HTTP_NO_CONTENT, array $headers = []): Response
     {
         return $this->make('', $status, $headers);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function json(
         array $data = [],
         int $status = Response::HTTP_OK,
@@ -43,9 +45,6 @@ final class ResponseFactory implements ResponseFactoryContract
         return new JsonResponse($data, $status, $headers, $options);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function paginator(
         LengthAwarePaginator $paginator,
         int $status = Response::HTTP_OK,
@@ -65,9 +64,6 @@ final class ResponseFactory implements ResponseFactoryContract
         ]);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function mappedPaginator(
         LengthAwarePaginator $paginator,
         callable $map,
@@ -78,5 +74,15 @@ final class ResponseFactory implements ResponseFactoryContract
         $paginator->setCollection($paginator->getCollection()->map($map));
 
         return $this->paginator($paginator, $status, $headers, $options);
+    }
+
+    public function stream(callable $callback, int $status = Response::HTTP_OK, array $headers = []): StreamedResponse
+    {
+        return new StreamedResponse($callback, $status, $headers);
+    }
+
+    public function redirectTo(string $path, int $status = Response::HTTP_FOUND, array $headers = []): RedirectResponse
+    {
+        return $this->redirector->to($path, $status, $headers, true);
     }
 }

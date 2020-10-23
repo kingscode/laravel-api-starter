@@ -6,10 +6,10 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Auth\Dispensary\Exceptions\TokenExpiredException;
 use App\Auth\LoginDispensary;
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Models\User;
 use App\Models\UserToken;
 use App\SPA\UrlGenerator;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

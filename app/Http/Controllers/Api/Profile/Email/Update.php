@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Profile\Email;
 
 use App\Auth\EmailDispensary;
+use App\Contracts\Http\Responses\ResponseFactory;
 use App\Http\Requests\Api\Profile\Email\UpdateRequest;
 use App\Models\User;
 use App\Notifications\User\Email\CantUpdate;
 use App\Notifications\User\Email\VerifyUpdate;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Notifications\Dispatcher;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
 final class Update
