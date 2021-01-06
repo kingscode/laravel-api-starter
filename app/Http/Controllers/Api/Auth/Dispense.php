@@ -40,7 +40,6 @@ final class Dispense
     /**
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function __invoke(Request $request): RedirectResponse
     {

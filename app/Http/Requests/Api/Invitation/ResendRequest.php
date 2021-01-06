@@ -11,7 +11,7 @@ final class ResendRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email:rfc,dns',],
+            'email' => ['required', 'string', 'email:rfc,dns'],
         ];
     }
 }
