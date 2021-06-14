@@ -37,11 +37,7 @@ final class Dispensary
      */
     public function verify(string $key, string $token): bool
     {
-        $hashedToken = $this->repository->get($key);
-
-        if (null === $hashedToken) {
-            throw new TokenExpiredException();
-        }
+        $hashedToken = $this->repository->get($key) ?? throw new TokenExpiredException();
 
         return $this->hasher->check($token, $hashedToken);
     }

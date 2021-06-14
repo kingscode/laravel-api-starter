@@ -15,14 +15,14 @@
         "guzzlehttp/guzzle": "^7.3",
         "koenhoeijmakers/headers": "^1.0",
         "koenhoeijmakers/laravel-filterable": "^4.5",
-        "laravel/framework": "^8.35",
+        "laravel/framework": "^8.46",
         "laravel/tinker": "^2.6",
-        "sentry/sentry-laravel": "^2.4"
+        "sentry/sentry-laravel": "^2.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.14",
         "mockery/mockery": "^1.4",
-        "nunomaduro/collision": "^5.3",
+        "nunomaduro/collision": "^5.4",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-latest"
     },
