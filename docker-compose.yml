@@ -35,7 +35,11 @@ services:
       - default
 
   app:
-    build: .docker/php8.0-apache/
+    build:
+      context: .docker/php8.0-apache/
+      args:
+        user: king
+        uid: 1000
     restart: always
     container_name: app
     depends_on:
