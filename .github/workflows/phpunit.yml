@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  phpunit:
+  build:
     name: PHPUnit
     runs-on: ubuntu-latest
     services:
