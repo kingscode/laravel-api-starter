@@ -38,7 +38,8 @@ services:
     build:
 
       # Alpine / Nginx / PHP-FPM 8.0
-      context: .docker/php-fpm8-alpine/
+      context: ./
+      dockerfile: .docker/php8-fpm-alpine/Dockerfile
 
         # Ubuntu / Apache / PHP 8.0
         #      context: .docker/php8.0-apache/
@@ -46,6 +47,7 @@ services:
       args:
         user: king
         uid: 1000
+        development: "true"
     restart: always
     container_name: app
     depends_on:
@@ -54,7 +56,7 @@ services:
     ports:
       - 80:80
     environment:
-      PORT: 80
+      - PORT=80
     volumes:
       - ./:/var/www/
     #      - ./.docker/php8.0-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
