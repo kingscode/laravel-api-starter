@@ -36,10 +36,18 @@ services:
 
   app:
     build:
-      context: .docker/php8.0-apache/
+
+      # Alpine / Nginx / PHP-FPM 8.0
+      context: ./
+      dockerfile: .docker/php8-fpm-alpine/Dockerfile
+
+        # Ubuntu / Apache / PHP 8.0
+        #      context: .docker/php8.0-apache/
+        # (don't forget the volume)
       args:
         user: king
         uid: 1000
+        development: "true"
     restart: always
     container_name: app
     depends_on:
@@ -47,9 +55,11 @@ services:
       - redis
     ports:
       - 80:80
+    environment:
+      - PORT=80
     volumes:
       - ./:/var/www/
-      - ./.docker/php8.0-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
+    #      - ./.docker/php8.0-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - default
 
