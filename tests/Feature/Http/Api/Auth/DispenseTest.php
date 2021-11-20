@@ -70,6 +70,32 @@ final class DispenseTest extends TestCase
         $this->assertStringContainsString('token=', parse_url($redirectUri, PHP_URL_FRAGMENT));
     }
 
+    public function testWithRefererIncludingPort()
+    {
+        Config::set('spa.force_url', false);
+
+        $user = UserFactory::new()->createOne([
+            'password' => bcrypt('kingscodedotnl'),
+        ]);
+
+        $token = $this->dispensary->dispense($user);
+
+        $response = $this
+            ->withHeader('Referer', 'https://www.kingscode.nl:8080/team')
+            ->json('post', 'auth/dispense', [
+                'email' => $user->email,
+                'token' => $token,
+            ]);
+
+        $response->isRedirect();
+
+        $redirectUri = $response->headers->get('Location');
+
+        $this->assertStringContainsString('https://www.kingscode.nl:8080/auth/callback', $redirectUri);
+
+        $this->assertStringContainsString('token=', parse_url($redirectUri, PHP_URL_FRAGMENT));
+    }
+
     public function testWithRedirectUri()
     {
         $user = UserFactory::new()->createOne([

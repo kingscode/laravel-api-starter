@@ -80,7 +80,11 @@ final class Dispense
             null !== $request->headers->get('referer')) {
             $urlInfo = parse_url($request->headers->get('referer'));
             if (is_array($urlInfo) && isset($urlInfo['scheme']) && isset($urlInfo['host'])) {
-                $urlGenerator = new UrlGenerator($urlInfo['scheme'] . '://' . $urlInfo['host']);
+                if (isset($urlInfo['port'])) {
+                    $urlGenerator = new UrlGenerator("{$urlInfo['scheme']}://{$urlInfo['host']}:{$urlInfo['port']}");
+                } else {
+                    $urlGenerator = new UrlGenerator("{$urlInfo['scheme']}://{$urlInfo['host']}");
+                }
 
                 return $urlGenerator->to('auth/callback', [
                     'redirect_uri' => $request->input('redirect_uri'),
