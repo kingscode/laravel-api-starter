@@ -10,7 +10,7 @@ use App\Contracts\Http\Responses\ResponseFactory;
 use App\Models\User;
 use App\Models\UserToken;
 use App\SPA\UrlGenerator;
-use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Config\Repository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -23,18 +23,18 @@ final class Dispense
 
     private LoginDispensary $dispensary;
 
-    private Translator $translator;
+    private Repository $config;
 
     public function __construct(
         ResponseFactory $responseFactory,
         UrlGenerator $urlGenerator,
         LoginDispensary $dispensary,
-        Translator $translator
+        Repository $config
     ) {
         $this->responseFactory = $responseFactory;
         $this->urlGenerator = $urlGenerator;
         $this->dispensary = $dispensary;
-        $this->translator = $translator;
+        $this->config = $config;
     }
 
     /**
@@ -43,9 +43,7 @@ final class Dispense
      */
     public function __invoke(Request $request): RedirectResponse
     {
-        $url = $this->urlGenerator->to('auth/callback', [
-            'redirect_uri' => $request->input('redirect_uri'),
-        ]);
+        $url = $this->createUrl($request);
 
         if (! $request->filled(['email', 'token'])) {
             return $this->responseFactory->redirectTo($url);
@@ -74,5 +72,28 @@ final class Dispense
         } catch (TokenExpiredException $exception) {
             return $this->responseFactory->redirectTo($url);
         }
+    }
+
+    private function createUrl(Request $request): string
+    {
+        if (false === $this->config->get('spa.force_url') &&
+            null !== $request->headers->get('referer')) {
+            $urlInfo = parse_url($request->headers->get('referer'));
+            if (is_array($urlInfo) && isset($urlInfo['scheme']) && isset($urlInfo['host'])) {
+                if (isset($urlInfo['port'])) {
+                    $urlGenerator = new UrlGenerator("{$urlInfo['scheme']}://{$urlInfo['host']}:{$urlInfo['port']}");
+                } else {
+                    $urlGenerator = new UrlGenerator("{$urlInfo['scheme']}://{$urlInfo['host']}");
+                }
+
+                return $urlGenerator->to('auth/callback', [
+                    'redirect_uri' => $request->input('redirect_uri'),
+                ]);
+            }
+        }
+
+        return $this->urlGenerator->to('auth/callback', [
+            'redirect_uri' => $request->input('redirect_uri'),
+        ]);
     }
 }

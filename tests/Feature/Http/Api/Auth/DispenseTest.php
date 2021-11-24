@@ -8,6 +8,7 @@ use App\Auth\Dispensary\Repository;
 use App\Auth\LoginDispensary;
 use App\SPA\UrlGenerator;
 use Database\Factories\UserFactory;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use function bcrypt;
 use function parse_url;
@@ -19,14 +20,6 @@ use const PHP_URL_FRAGMENT;
  */
 final class DispenseTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->dispensary = $this->app->make(LoginDispensary::class);
-        $this->urlGenerator = $this->app->make(UrlGenerator::class);
-    }
-
     public function test()
     {
         $user = UserFactory::new()->createOne([
@@ -35,16 +28,70 @@ final class DispenseTest extends TestCase
 
         $token = $this->dispensary->dispense($user);
 
-        $response = $this->json('post', 'auth/dispense', [
-            'email' => $user->email,
-            'token' => $token,
-        ]);
+        $response = $this
+            ->withHeader('Referer', 'https://www.kingscode.nl/')
+            ->json('post', 'auth/dispense', [
+                'email' => $user->email,
+                'token' => $token,
+            ]);
 
         $response->isRedirect();
 
         $redirectUri = $response->headers->get('Location');
 
         $this->assertStringContainsString($this->urlGenerator->to('auth/callback'), $redirectUri);
+
+        $this->assertStringContainsString('token=', parse_url($redirectUri, PHP_URL_FRAGMENT));
+    }
+
+    public function testWithReferer()
+    {
+        Config::set('spa.force_url', false);
+
+        $user = UserFactory::new()->createOne([
+            'password' => bcrypt('kingscodedotnl'),
+        ]);
+
+        $token = $this->dispensary->dispense($user);
+
+        $response = $this
+            ->withHeader('Referer', 'https://www.kingscode.nl/team')
+            ->json('post', 'auth/dispense', [
+                'email' => $user->email,
+                'token' => $token,
+            ]);
+
+        $response->isRedirect();
+
+        $redirectUri = $response->headers->get('Location');
+
+        $this->assertStringContainsString('https://www.kingscode.nl/auth/callback', $redirectUri);
+
+        $this->assertStringContainsString('token=', parse_url($redirectUri, PHP_URL_FRAGMENT));
+    }
+
+    public function testWithRefererIncludingPort()
+    {
+        Config::set('spa.force_url', false);
+
+        $user = UserFactory::new()->createOne([
+            'password' => bcrypt('kingscodedotnl'),
+        ]);
+
+        $token = $this->dispensary->dispense($user);
+
+        $response = $this
+            ->withHeader('Referer', 'https://www.kingscode.nl:8080/team')
+            ->json('post', 'auth/dispense', [
+                'email' => $user->email,
+                'token' => $token,
+            ]);
+
+        $response->isRedirect();
+
+        $redirectUri = $response->headers->get('Location');
+
+        $this->assertStringContainsString('https://www.kingscode.nl:8080/auth/callback', $redirectUri);
 
         $this->assertStringContainsString('token=', parse_url($redirectUri, PHP_URL_FRAGMENT));
     }
@@ -110,7 +157,7 @@ final class DispenseTest extends TestCase
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
-        $token = $this->dispensary->dispense($user);
+        $this->dispensary->dispense($user);
 
         $response = $this->json('post', 'auth/dispense', [
             'email' => $user->email,
@@ -124,18 +171,34 @@ final class DispenseTest extends TestCase
 
     public function testRedirectsBackWhenEmailDoesntExists()
     {
-        $user = UserFactory::new()->createOne([
+        UserFactory::new()->createOne([
             'email'    => 'yoink@dadoink.nl',
             'password' => bcrypt('kingscodedotnl'),
         ]);
 
         $response = $this->json('post', 'auth/dispense', [
-            'email' => 'info@kingscode.nl',
+            'email' => 'testing@kingscode.nl',
             'token' => 'shizzlepizza',
         ]);
 
         $redirectUri = $response->headers->get('Location');
 
         $this->assertStringContainsString($this->urlGenerator->to('auth/callback'), $redirectUri);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Config::set('spa.force_url', true);
+        Config::set('spa.url', 'http://localhost:1337');
+        $this->dispensary = $this->app->make(LoginDispensary::class);
+        $this->urlGenerator = $this->app->make(UrlGenerator::class);
+    }
+
+    protected function tearDown(): void
+    {
+        unset($this->dispensary, $this->urlGenerator);
+        parent::tearDown();
     }
 }
