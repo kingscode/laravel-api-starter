@@ -44,6 +44,14 @@ RUN pecl install -o -f redis \
 # BCMath extension is required for Google Cloud Tasks
 RUN docker-php-ext-install bcmath
 
+# OPCache (if not development)
+COPY .docker/alpine/php8-fpm/opcache.ini /usr/local/etc/php/conf.d/
+RUN \
+     if [[ -z $development || $development != 'true' ]] ;  \
+        then \
+          docker-php-ext-install opcache && docker-php-ext-enable opcache; \
+     fi
+
 # GD (if needed)
 #RUN apk add --no-cache \
 #        zlib-dev \
@@ -78,6 +86,7 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Configure PHP-FPM
 RUN sed -i "s/www-data/$user/g" /usr/local/etc/php-fpm.d/www.conf
+COPY .docker/alpine/php8-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # Configure supervisor
 RUN mkdir /etc/supervisor/
