@@ -105,6 +105,13 @@ RUN if [[ -z $development || $development != 'true' ]] ;  \
 
 # Add user
 RUN addgroup -S $user && adduser -S $user -G $user -u $uid
+
+# In development, make /opt writable for PHPStorm (coverage)
+RUN if [[ $development == 'true' ]] ;  \
+    then chown $user:$user -Rf /opt && chmod -R 777 /opt; \
+    fi
+
+# Apply ownage/permissions to user
 RUN chown $user:$user -Rf /var/www/storage /var/www/bootstrap /var/lib/nginx /run/nginx/nginx.pid /etc/nginx/modules /etc/supervisor/supervisord.conf /etc/supervisor/supervisord.log
 RUN chmod -R 755 /var/www/storage /etc/supervisor/supervisord.log
 RUN echo 'alias pa="php artisan"' >> /home/$user/.bashrc
