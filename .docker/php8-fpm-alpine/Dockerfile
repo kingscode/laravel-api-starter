@@ -45,7 +45,7 @@ RUN pecl install -o -f redis \
 RUN docker-php-ext-install bcmath
 
 # OPCache (if not development)
-COPY .docker/alpine/php8-fpm/opcache.ini /usr/local/etc/php/conf.d/
+COPY .docker/php8-fpm-alpine/php8-fpm/opcache.ini /usr/local/etc/php/conf.d/
 RUN \
      if [[ -z $development || $development != 'true' ]] ;  \
         then \
@@ -86,7 +86,7 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Configure PHP-FPM
 RUN sed -i "s/www-data/$user/g" /usr/local/etc/php-fpm.d/www.conf
-COPY .docker/alpine/php8-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY .docker/php8-fpm-alpine/php8-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # Configure supervisor
 RUN mkdir /etc/supervisor/
