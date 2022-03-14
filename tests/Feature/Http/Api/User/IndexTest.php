@@ -43,7 +43,7 @@ final class IndexTest extends TestCase
             'name' => 'bbb',
         ]);
 
-        $response = $this->actingAs($user1, 'api')->json('get', 'user?name=bbb');
+        $response = $this->actingAs($user1, 'api')->json('get', 'user?search=bbb');
 
         $response->assertOk();
 
@@ -59,7 +59,7 @@ final class IndexTest extends TestCase
             'email' => 'support@kingscode.nl',
         ]);
 
-        $response = $this->actingAs($user1, 'api')->json('get', 'user?email=support');
+        $response = $this->actingAs($user1, 'api')->json('get', 'user?search=support');
 
         $response->assertOk();
 
