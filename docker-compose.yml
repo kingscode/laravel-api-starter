@@ -37,9 +37,9 @@ services:
   app:
     build:
 
-      # Alpine / Nginx / PHP-FPM 8.0
+      # Alpine / Nginx / PHP-FPM 8.1
       context: ./
-      dockerfile: .docker/php8-fpm-alpine/Dockerfile
+      dockerfile: .docker/php8.1-fpm-alpine/Dockerfile
 
         # Ubuntu / Apache / PHP 8.0
         #      context: .docker/php8.0-apache/

@@ -1,4 +1,4 @@
-FROM php:8.0.5-fpm-alpine
+FROM php:8.1-fpm-alpine
 
 ARG user=king
 ARG uid=1000
@@ -45,7 +45,7 @@ RUN pecl install -o -f redis \
 RUN docker-php-ext-install bcmath
 
 # OPCache (if not development)
-COPY .docker/php8-fpm-alpine/php8-fpm/opcache.ini /usr/local/etc/php/conf.d/
+COPY .docker/php8.1-fpm-alpine/php8.1-fpm/opcache.ini /usr/local/etc/php/conf.d/
 RUN \
      if [[ -z $development || $development != 'true' ]] ;  \
         then \
@@ -74,9 +74,9 @@ RUN php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 RUN rm -rf composer-setup.php
 
 # Configure nginx
-COPY .docker/php8-fpm-alpine/nginx/nginx.conf /etc/nginx/
+COPY .docker/php8.1-fpm-alpine/nginx/nginx.conf /etc/nginx/
 RUN sed -i "s/_USER_/$user/g" /etc/nginx/nginx.conf
-COPY .docker/php8-fpm-alpine/nginx/nginx-laravel.conf /etc/nginx/modules
+COPY .docker/php8.1-fpm-alpine/nginx/nginx-laravel.conf /etc/nginx/modules
 
 RUN mkdir -p /run/nginx/
 RUN touch /run/nginx/nginx.pid
@@ -86,11 +86,11 @@ RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Configure PHP-FPM
 RUN sed -i "s/www-data/$user/g" /usr/local/etc/php-fpm.d/www.conf
-COPY .docker/php8-fpm-alpine/php8-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY .docker/php8.1-fpm-alpine/php8.1-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # Configure supervisor
 RUN mkdir /etc/supervisor/
-ADD .docker/php8-fpm-alpine/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+ADD .docker/php8.1-fpm-alpine/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 RUN sed -i "s/_USER_/$user/g" /etc/supervisor/supervisord.conf
 RUN touch /etc/supervisor/supervisord.log
 
@@ -118,7 +118,7 @@ RUN echo 'alias pa="php artisan"' >> /home/$user/.bashrc
 RUN echo 'alias phpunit="./vendor/bin/phpunit"' >> /home/$user/.bashrc
 RUN echo 'alias refresh="pa migrate:fresh"' >> /home/$user/.bashrc
 
-COPY .docker/php8-fpm-alpine/entrypoint.sh /etc/entrypoint.sh
+COPY .docker/php8.1-fpm-alpine/entrypoint.sh /etc/entrypoint.sh
 RUN chmod +x /etc/entrypoint.sh
 RUN chown $user:$user /etc/entrypoint.sh
 
