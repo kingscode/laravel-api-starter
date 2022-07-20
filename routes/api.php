@@ -14,8 +14,6 @@ $router->namespace('Api')->group(function (Router $router) {
         $router->post('dispense', 'Dispense');
     });
 
-    $router->get('docs/{doc?}', 'Docs\Show');
-
     $router->namespace('Invitation')->prefix('invitation')->middleware('throttle:spa_invitation_lock')->group(function (Router $router) {
         $router->post('resend', 'Resend');
         $router->post('accept', 'Accept');
