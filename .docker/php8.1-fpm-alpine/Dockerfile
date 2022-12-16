@@ -19,6 +19,7 @@ RUN \
 # Packages
 RUN apk update \
     && apk upgrade \
+    && apk add --update linux-headers \
     && apk add --no-cache \
         # gmp (arithmethic calculations)
         gmp-dev \
