@@ -1,4 +1,4 @@
-FROM php:8.1-fpm-alpine
+FROM thekingscode/php:8.2-apache
 
 ARG user=king
 ARG uid=1000
