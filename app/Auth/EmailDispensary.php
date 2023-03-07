@@ -25,11 +25,6 @@ final class EmailDispensary
         return $this->dispensary->dispense($this->getKey($user, $email), self::TTL, self::CHARS);
     }
 
-    public function verify(Authenticatable $user, string $email, string $token): bool
-    {
-        return $this->dispensary->verify($this->getKey($user, $email), $token);
-    }
-
     private function getKey(Authenticatable $user, string $email): string
     {
         return implode('_', [
@@ -38,5 +33,10 @@ final class EmailDispensary
             'email',
             $email,
         ]);
+    }
+
+    public function verify(Authenticatable $user, string $email, string $token): bool
+    {
+        return $this->dispensary->verify($this->getKey($user, $email), $token);
     }
 }

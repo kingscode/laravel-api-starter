@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Events\User\Deleting;
+use App\Listeners\User\Deleting\CleanUp;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 final class EventServiceProvider extends ServiceProvider
@@ -14,8 +16,8 @@ final class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        \App\Events\User\Deleting::class => [
-            \App\Listeners\User\Deleting\CleanUp::class,
+        Deleting::class => [
+            CleanUp::class,
         ],
     ];
 }

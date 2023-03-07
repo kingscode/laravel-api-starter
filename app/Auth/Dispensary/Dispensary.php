@@ -29,6 +29,11 @@ final class Dispensary
         return $token;
     }
 
+    private function generateToken(int $chars): string
+    {
+        return Str::random($chars);
+    }
+
     /**
      * @param  string $key
      * @param  string $token
@@ -40,10 +45,5 @@ final class Dispensary
         $hashedToken = $this->repository->get($key) ?? throw new TokenExpiredException();
 
         return $this->hasher->check($token, $hashedToken);
-    }
-
-    private function generateToken(int $chars): string
-    {
-        return Str::random($chars);
     }
 }

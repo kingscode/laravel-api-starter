@@ -25,11 +25,6 @@ final class LoginDispensary
         return $this->dispensary->dispense($this->getKey($user), self::TTL, self::CHARS);
     }
 
-    public function verify(Authenticatable $user, string $token): bool
-    {
-        return $this->dispensary->verify($this->getKey($user), $token);
-    }
-
     private function getKey(Authenticatable $user): string
     {
         return implode('_', [
@@ -37,5 +32,10 @@ final class LoginDispensary
             $user->getAuthIdentifier(),
             'login',
         ]);
+    }
+
+    public function verify(Authenticatable $user, string $token): bool
+    {
+        return $this->dispensary->verify($this->getKey($user), $token);
     }
 }

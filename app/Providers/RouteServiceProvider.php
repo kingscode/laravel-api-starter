@@ -35,41 +35,6 @@ final class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    public function register()
-    {
-        parent::register();
-
-        $this->app->singleton(ResponseFactoryContract::class, static function (Container $container) {
-            return $container->make(ResponseFactory::class);
-        });
-    }
-
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @param  \Illuminate\Routing\Router $router
-     * @return void
-     */
-    private function mapWebRoutes(Router $router): void
-    {
-        $router->middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
-    }
-
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @param  \Illuminate\Routing\Router $router
-     * @return void
-     */
-    private function mapApiRoutes(Router $router): void
-    {
-        $router->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
-    }
-
     /**
      * Configure the rate limiters for the application.
      *
@@ -103,5 +68,40 @@ final class RouteServiceProvider extends ServiceProvider
         }
 
         throw new RuntimeException('Unable to generate the request signature. Route unavailable.');
+    }
+
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     *
+     * @param  \Illuminate\Routing\Router $router
+     * @return void
+     */
+    private function mapApiRoutes(Router $router): void
+    {
+        $router->middleware('api')->namespace($this->namespace)->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @param  \Illuminate\Routing\Router $router
+     * @return void
+     */
+    private function mapWebRoutes(Router $router): void
+    {
+        $router->middleware('web')->namespace($this->namespace)->group(base_path('routes/web.php'));
+    }
+
+    public function register()
+    {
+        parent::register();
+
+        $this->app->singleton(ResponseFactoryContract::class, static function (Container $container) {
+            return $container->make(ResponseFactory::class);
+        });
     }
 }

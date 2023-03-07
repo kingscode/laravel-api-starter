@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Dispense extends Model
 {
-    protected  $fillable = [
+    protected $fillable = [
         'key', 'token', 'expires_at',
     ];
 
-    protected  $casts = [
-        'expires_at'=>'datetime',
+    protected $casts = [
+        'expires_at' => 'datetime',
     ];
 
     public function getExpiresAt(): Carbon
