@@ -43,7 +43,7 @@ jobs:
       - name: Execute tests
         run: |
           php artisan migrate --force --quiet --no-interaction
-          vendor/bin/phpunit --coverage-clover=coverage.clover
+          vendor/bin/phpunit
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
