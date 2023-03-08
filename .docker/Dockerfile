@@ -5,6 +5,9 @@ FROM base as dev
 ARG user=king
 ARG uid=1000
 
+# Use development php ini
+RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
 # Setup user.
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer
@@ -20,6 +23,9 @@ USER $user
 FROM base as prod
 
 RUN docker-php-ext-install opcache && docker-php-ext-enable opcache;
+
+# Use development php ini
+RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 COPY . /var/www
 WORKDIR /var/www
