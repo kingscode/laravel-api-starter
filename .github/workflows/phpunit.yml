@@ -31,7 +31,7 @@ jobs:
         with:
           php-version: 8.2
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, gd
-          tools: composer:v2
+          tools: composer
           coverage: none
 
       - name: Install dependencies
@@ -43,7 +43,7 @@ jobs:
       - name: Execute tests
         run: |
           php artisan migrate --force --quiet --no-interaction
-          vendor/bin/phpunit --verbose --coverage-clover=coverage.clover
+          vendor/bin/phpunit --coverage-clover=coverage.clover
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
