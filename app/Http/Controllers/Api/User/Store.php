@@ -11,26 +11,18 @@ use App\Notifications\User\Invitation;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Notifications\Dispatcher;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
-final class Store
+final readonly class Store
 {
-    private Dispatcher $notificationDispatcher;
-
-    private PasswordBrokerManager $passwordBrokerManager;
-
-    private ResponseFactory $responseFactory;
 
     public function __construct(
-        Dispatcher $notificationDispatcher,
-        PasswordBrokerManager $passwordBrokerManager,
-        ResponseFactory $responseFactory
+        private Dispatcher $notificationDispatcher,
+        private PasswordBrokerManager $passwordBrokerManager,
+        private ResponseFactory $responseFactory
     ) {
-        $this->notificationDispatcher = $notificationDispatcher;
-        $this->passwordBrokerManager = $passwordBrokerManager;
-        $this->responseFactory = $responseFactory;
     }
 
     public function __invoke(StoreRequest $request): Response
@@ -43,7 +35,8 @@ final class Store
         /** @var User $user */
         $user = User::query()->create($attributes);
 
-        $this->notificationDispatcher->send($user,
+        $this->notificationDispatcher->send(
+            $user,
             new Invitation($this->getPasswordBroker()->createToken($user))
         );
 

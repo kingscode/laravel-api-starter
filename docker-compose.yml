@@ -4,22 +4,20 @@ services:
   redis:
     image: redis:latest
     restart: always
-    container_name: redis
     ports:
-      - 6379:6379
+      - "6379:6379"
     networks:
       - default
 
   db:
     image: mariadb:latest
     restart: always
-    container_name: db
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: application
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
@@ -28,38 +26,34 @@ services:
   adminer:
     image: adminer:latest
     restart: always
-    container_name: adminer
     ports:
-      - 4444:8080
+      - "4444:8080"
     networks:
       - default
 
   app:
     build:
-
-      # Alpine / Nginx / PHP-FPM 8.1
-      context: ./
-      dockerfile: .docker/php8.1-fpm-alpine/Dockerfile
-
-        # Ubuntu / Apache / PHP 8.0
-        #      context: .docker/php8.0-apache/
-        # (don't forget the volume)
-      args:
-        user: king
-        uid: 1000
-        development: "true"
+      context: .
+      dockerfile: .docker/Dockerfile
+      target: dev
     restart: always
-    container_name: app
     depends_on:
       - db
       - redis
     ports:
-      - 80:80
+      - "80:80"
     environment:
       - PORT=80
     volumes:
       - ./:/var/www/
-    #      - ./.docker/php8.0-apache/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - default
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
     networks:
       - default
 
@@ -68,6 +62,3 @@ volumes:
     driver: local
   mysql-data:
     driver: local
-
-networks:
-  default:

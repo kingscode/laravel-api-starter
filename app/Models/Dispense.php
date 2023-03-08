@@ -13,8 +13,8 @@ final class Dispense extends Model
         'key', 'token', 'expires_at',
     ];
 
-    protected $dates = [
-        'expires_at',
+    protected $casts = [
+        'expires_at' => 'datetime',
     ];
 
     public function getExpiresAt(): Carbon

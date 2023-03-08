@@ -29,13 +29,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, gd
-          tools: composer:v2
+          tools: composer
           coverage: none
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction --no-suggest --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
 
       - name: Start MariaDB
         run: sudo /etc/init.d/mysql start
@@ -43,19 +43,10 @@ jobs:
       - name: Execute tests
         run: |
           php artisan migrate --force --quiet --no-interaction
-          vendor/bin/phpunit --verbose --coverage-clover=coverage.clover
+          vendor/bin/phpunit
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_DATABASE: application
           DB_USERNAME: root
           DB_PASSWORD: secret
-
-      - name: Update github status
-        uses: Sibz/github-status-action@v1
-        with:
-          authToken: ${{secrets.GITHUB_TOKEN}}
-          context: 'PHPUnit'
-          description: 'Passed'
-          state: 'success'
-          sha: ${{github.event.pull_request.head.sha || github.sha}}

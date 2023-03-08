@@ -22,27 +22,26 @@ final class ResponseFactory implements ResponseFactoryContract
         $this->redirector = $redirector;
     }
 
-    public function make(string $content = '', int $status = Response::HTTP_OK, array $headers = []): Response
-    {
-        return new Response($content, $status, $headers);
-    }
-
     public function noContent(int $status = Response::HTTP_NO_CONTENT, array $headers = []): Response
     {
         return $this->make('', $status, $headers);
     }
 
-    public function json(
-        array $data = [],
+    public function make(string $content = '', int $status = Response::HTTP_OK, array $headers = []): Response
+    {
+        return new Response($content, $status, $headers);
+    }
+
+    public function mappedPaginator(
+        LengthAwarePaginator $paginator,
+        callable $map,
         int $status = Response::HTTP_OK,
         array $headers = [],
         int $options = 0
     ): JsonResponse {
-        if (! array_key_exists('data', $data)) {
-            $data = ['data' => $data];
-        }
+        $paginator->setCollection($paginator->getCollection()->map($map));
 
-        return new JsonResponse($data, $status, $headers, $options);
+        return $this->paginator($paginator, $status, $headers, $options);
     }
 
     public function paginator(
@@ -64,16 +63,17 @@ final class ResponseFactory implements ResponseFactoryContract
         ]);
     }
 
-    public function mappedPaginator(
-        LengthAwarePaginator $paginator,
-        callable $map,
+    public function json(
+        array $data = [],
         int $status = Response::HTTP_OK,
         array $headers = [],
         int $options = 0
     ): JsonResponse {
-        $paginator->setCollection($paginator->getCollection()->map($map));
+        if (! array_key_exists('data', $data)) {
+            $data = ['data' => $data];
+        }
 
-        return $this->paginator($paginator, $status, $headers, $options);
+        return new JsonResponse($data, $status, $headers, $options);
     }
 
     public function stream(callable $callback, int $status = Response::HTTP_OK, array $headers = []): StreamedResponse

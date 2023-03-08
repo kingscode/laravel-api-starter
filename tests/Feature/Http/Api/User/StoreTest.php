@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Http\Api\User;
 
 use Database\Factories\UserFactory;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 final class StoreTest extends TestCase

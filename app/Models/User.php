@@ -28,14 +28,14 @@ final class User extends Authenticatable
         return $this->hasMany(UserToken::class);
     }
 
+    public function getCurrentToken(): ?UserToken
+    {
+        return $this->currentToken;
+    }
+
     public function setCurrentToken(UserToken $token)
     {
         $this->currentToken = $token;
-    }
-
-    public function getCurrentToken()
-    {
-        return $this->currentToken;
     }
 
     public function getEmail(): string

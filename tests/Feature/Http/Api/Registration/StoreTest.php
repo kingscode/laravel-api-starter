@@ -7,21 +7,14 @@ namespace Tests\Feature\Http\Api\Registration;
 use App\Mail\Registration\AlreadyExists;
 use App\Mail\Registration\Verify;
 use Database\Factories\UserFactory;
-use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Testing\Fakes\MailFake;
 use Tests\TestCase;
 
 final class StoreTest extends TestCase
 {
     protected MailFake $mailer;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app->instance(Mailer::class, $this->mailer = new MailFake());
-    }
 
     public function test()
     {
@@ -67,5 +60,12 @@ final class StoreTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)->assertJsonValidationErrors([
             'name', 'email',
         ]);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->mailer = Mail::fake();
     }
 }

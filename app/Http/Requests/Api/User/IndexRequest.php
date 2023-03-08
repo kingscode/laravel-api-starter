@@ -11,7 +11,7 @@ final class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search'     => ['sometimes', 'string'],
+            'search'   => ['sometimes', 'string'],
             'sort_by'  => ['sometimes', 'string', 'in:name,email'],
             'desc'     => ['sometimes', 'boolean'],
             'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
