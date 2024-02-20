@@ -1,5 +1,7 @@
 FROM thekingscode/php8.2-apache as base
 
+RUN rm /var/run/apache2/apache2.pid
+
 FROM base as dev
 
 ARG user=king
