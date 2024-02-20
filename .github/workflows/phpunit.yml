@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mariadb:latest
+        image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: application
